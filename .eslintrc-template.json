@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "plugin:@angular-eslint/template/recommended"
+  ],
+  "files": ["src/**/*.html"],
+  "parser": "@angular-eslint/template-parser",
+  "plugins": ["@angular-eslint/template"],
+  "rules": {
+    "@angular-eslint/template/no-negated-async": "error",
+    "@angular-eslint/template/i18n-delay": "error"
+  }
+}

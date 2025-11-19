@@ -1,0 +1,9 @@
+.custom_button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.custom_text-box {
+  word-break: break-all;
+}
