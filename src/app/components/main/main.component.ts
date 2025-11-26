@@ -5,6 +5,7 @@ import {
   AfterViewInit,
   Component,
   DoCheck,
+  Input,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -18,43 +19,41 @@ import { courses } from 'src/app/mock/courses';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class MainComponent
-  implements
-    OnInit,
-    OnChanges,
-    DoCheck,
-    AfterContentInit,
-    AfterContentChecked,
-    AfterViewInit,
-    AfterViewChecked,
-    OnDestroy
-{
-  courses: Courses[] = [];
+// OnChanges,
+// DoCheck,
+// AfterContentInit,
+// AfterContentChecked,
+// AfterViewInit,
+// AfterViewChecked,
+// OnDestroy
+export class MainComponent implements OnInit {
+  @Input() courses: Courses[] = [];
+  filteredCourses: Courses[] = [];
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes, 'ngOnChanges');
-  }
-  ngDoCheck() {
-    console.log('ngDoCheck');
-  }
-  ngAfterContentInit() {
-    console.log('ngAfterContentInit');
-  }
-  ngAfterContentChecked() {
-    console.log('ngAfterContentChecked');
-  }
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit');
-  }
-  ngAfterViewChecked() {
-    console.log('ngAfterViewChecked');
-  }
-  ngOnDestroy() {
-    console.log('ngOnDestroy');
-  }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log(changes, 'ngOnChanges');
+  // }
+  // ngDoCheck() {
+  //   console.log('ngDoCheck');
+  // }
+  // ngAfterContentInit() {
+  //   console.log('ngAfterContentInit');
+  // }
+  // ngAfterContentChecked() {
+  //   console.log('ngAfterContentChecked');
+  // }
+  // ngAfterViewInit() {
+  //   console.log('ngAfterViewInit');
+  // }
+  // ngAfterViewChecked() {
+  //   console.log('ngAfterViewChecked');
+  // }
+  // ngOnDestroy() {
+  //   console.log('ngOnDestroy');
+  // }
 
   ngOnInit(): void {
-    console.log('ngOnInit');
-    this.courses = courses;
+    // console.log('ngOnInit');
+    this.courses = [...courses];
   }
 }

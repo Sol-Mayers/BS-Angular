@@ -1,6 +1,10 @@
 <div class="flex flex-column align-items-flex-start gap-4">
   <app-course-item
-    *ngFor="let course of courses"
+    *ngFor="
+      let course of filteredCourses.length
+        ? filteredCourses
+        : (courses | orderBy : 'creationDate')
+    "
     [course]="course"
     (delete)="deleteCourse($event)"
     (edit)="editCourse($event)"

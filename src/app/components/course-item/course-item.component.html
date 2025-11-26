@@ -18,7 +18,7 @@
       href="#"
       class="flex flex-row justify-content-flex-start align-items-center mr-5 no-underline text-900"
     >
-      <h2 class="text-2xl custom_text-box">{{ course.title }}</h2>
+      <h2 class="text-2xl custom_text-box">{{ course.title | uppercase }}</h2>
       <i
         class="pi pi-star-fill ml-3 text-yellow-500"
         [ngClass]="{
@@ -31,11 +31,11 @@
     >
       <div class="flex flex-row justify-content-flex-start align-items-center">
         <i class="pi pi-clock mr-3"></i>
-        <span>{{ course.duration }}</span>
+        <span>{{ course.duration | duration }}</span>
       </div>
       <div class="flex flex-row justify-content-flex-start align-items-center">
         <i class="pi pi-calendar mr-3"></i>
-        <span>{{ course.creationDate }}</span>
+        <span>{{ course.creationDate | date : "d MMMM y года" }}</span>
       </div>
     </div>
   </div>
