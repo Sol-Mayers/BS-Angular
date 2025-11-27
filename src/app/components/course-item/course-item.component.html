@@ -1,14 +1,10 @@
-<!-- Условие для прорисовки голубого или белого фона и звёздочки для блока с курсом - это временное решение. В дальнейшем будет заменено на реальное -->
-
 <div
   class="flex flex-column align-items-flex-start w-full p-3 border-round-lg font-normal gap-3"
-  [class.bg-blue-50]="
-    course.id === '1' || course.id === '3' || course.id === '4'
-  "
+  [appPaintCourseItem]="course"
   id="{{ course.id }}"
   [ngClass]="{
-    'bg-blue-50': course.id === '1' || course.id === '3' || course.id === '4',
-    'bg-white': course.id !== '1' && course.id !== '3' && course.id !== '4'
+    'bg-blue-50': course.topRated,
+    'bg-white': !course.topRated,
   }"
 >
   <div
@@ -22,7 +18,7 @@
       <i
         class="pi pi-star-fill ml-3 text-yellow-500"
         [ngClass]="{
-          hidden: course.id !== '1' && course.id !== '3' && course.id !== '4'
+          hidden: !course.topRated
         }"
       ></i>
     </a>

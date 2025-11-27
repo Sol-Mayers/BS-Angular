@@ -16,6 +16,8 @@ import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { OrderByPipe } from './components/courses/pipes/order-by.pipe';
 import { FilterPipe } from './components/search/pipes/filter.pipe';
+import { PaintCourseItemDirective } from './components/course-item/directives/paint-course-item.directive';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 registerLocaleData(localeRu);
 
@@ -34,6 +36,8 @@ registerLocaleData(localeRu);
     DurationPipe,
     OrderByPipe,
     FilterPipe,
+    PaintCourseItemDirective,
+    NotFoundComponent,
   ],
   imports: [BrowserModule],
   exports: [CoursesComponent],

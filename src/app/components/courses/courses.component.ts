@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Courses } from 'src/app/domain/courses.interface';
 import { MainComponent } from '../main/main.component';
 
