@@ -1,28 +1,19 @@
-import { Component } from '@angular/core';
-import { MainComponent } from '../main/main.component';
-import { FilterPipe } from './pipes/filter.pipe';
-import { Courses } from 'src/app/domain/courses.interface';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
 })
-export class SearchComponent extends MainComponent {
+export class SearchComponent {
   inputText = '';
-  filter = new FilterPipe();
+  @Output() find: EventEmitter<string> = new EventEmitter<string>();
 
   getCourse(event: Event): string {
     return (event.target as HTMLInputElement).value;
   }
 
   findCourse(): void {
-    this.filteredCourses = this.filter.transform(
-      this.courses,
-      'title',
-      this.inputText
-    );
-
-    console.log('filtered:', this.filteredCourses);
+    this.find.emit(this.inputText);
   }
 }

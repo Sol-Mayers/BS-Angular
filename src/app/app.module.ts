@@ -14,7 +14,7 @@ import { CourseItemComponent } from './components/course-item/course-item.compon
 import { DurationPipe } from './components/course-item/pipes/duration.pipe';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
-import { OrderByPipe } from './components/courses/pipes/order-by.pipe';
+import { OrderByPipe } from './components/main/pipes/order-by.pipe';
 import { FilterPipe } from './components/search/pipes/filter.pipe';
 import { PaintCourseItemDirective } from './components/course-item/directives/paint-course-item.directive';
 import { NotFoundComponent } from './components/not-found/not-found.component';
