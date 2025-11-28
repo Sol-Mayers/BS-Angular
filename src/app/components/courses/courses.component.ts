@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Courses } from 'src/app/domain/courses.interface';
-import { MainComponent } from '../main/main.component';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css'],
 })
-export class CoursesComponent extends MainComponent {
+export class CoursesComponent {
+  @Input() courses: Courses[] = [];
+
   deleteCourse(courses: Courses): void {
     console.log(courses.id);
   }

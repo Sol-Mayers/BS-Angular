@@ -1,60 +1,22 @@
-import {
-  AfterContentChecked,
-  AfterContentInit,
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  DoCheck,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Courses } from 'src/app/domain/courses.interface';
 import { courses } from 'src/app/mock/courses';
+import { FilterPipe } from '../search/pipes/filter.pipe';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class MainComponent
-  implements
-    OnInit,
-    OnChanges,
-    DoCheck,
-    AfterContentInit,
-    AfterContentChecked,
-    AfterViewInit,
-    AfterViewChecked,
-    OnDestroy
-{
+export class MainComponent implements OnInit {
   courses: Courses[] = [];
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes, 'ngOnChanges');
-  }
-  ngDoCheck() {
-    console.log('ngDoCheck');
-  }
-  ngAfterContentInit() {
-    console.log('ngAfterContentInit');
-  }
-  ngAfterContentChecked() {
-    console.log('ngAfterContentChecked');
-  }
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit');
-  }
-  ngAfterViewChecked() {
-    console.log('ngAfterViewChecked');
-  }
-  ngOnDestroy() {
-    console.log('ngOnDestroy');
-  }
+  filter = new FilterPipe();
 
   ngOnInit(): void {
-    console.log('ngOnInit');
-    this.courses = courses;
+    this.courses = [...courses];
+  }
+
+  findCourse(text: string): void {
+    this.courses = this.filter.transform(courses, 'title', text);
   }
 }

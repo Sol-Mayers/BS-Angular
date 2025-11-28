@@ -1,6 +1,9 @@
+<!-- Дописать условие для app-not-found!!! -->
+
 <div class="flex flex-column align-items-flex-start gap-4">
+  <app-not-found *ngIf="!courses.length"></app-not-found>
   <app-course-item
-    *ngFor="let course of courses"
+    *ngFor="let course of courses | orderBy : 'creationDate'"
     [course]="course"
     (delete)="deleteCourse($event)"
     (edit)="editCourse($event)"
