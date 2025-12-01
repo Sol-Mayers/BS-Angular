@@ -10,6 +10,7 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
 import { SearchComponent } from './components/search/search.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { ShowMoreButtonComponent } from './components/show-more-button/show-more-button.component';
+import { CourseItemComponent } from './components/course-item/course-item.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,10 @@ import { ShowMoreButtonComponent } from './components/show-more-button/show-more
     SearchComponent,
     CoursesComponent,
     ShowMoreButtonComponent,
+    CourseItemComponent,
   ],
   imports: [BrowserModule],
+  exports: [CoursesComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

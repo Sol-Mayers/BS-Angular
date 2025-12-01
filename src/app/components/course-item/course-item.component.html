@@ -1,0 +1,60 @@
+<!-- Условие для прорисовки голубого или белого фона и звёздочки для блока с курсом - это временное решение. В дальнейшем будет заменено на реальное -->
+
+<div
+  class="flex flex-column align-items-flex-start w-full p-3 border-round-lg font-normal gap-3"
+  [class.bg-blue-50]="
+    course.id === '1' || course.id === '3' || course.id === '4'
+  "
+  id="{{ course.id }}"
+  [ngClass]="{
+    'bg-blue-50': course.id === '1' || course.id === '3' || course.id === '4',
+    'bg-white': course.id !== '1' && course.id !== '3' && course.id !== '4'
+  }"
+>
+  <div
+    class="text-900 flex flex-row justify-content-between align-items-center w-full"
+  >
+    <a
+      href="#"
+      class="flex flex-row justify-content-flex-start align-items-center mr-5 no-underline text-900"
+    >
+      <h2 class="text-2xl custom_text-box">{{ course.title }}</h2>
+      <i
+        class="pi pi-star-fill ml-3 text-yellow-500"
+        [ngClass]="{
+          hidden: course.id !== '1' && course.id !== '3' && course.id !== '4'
+        }"
+      ></i>
+    </a>
+    <div
+      class="flex flex-row justify-content-flex-start align-items-center gap-3 text-600"
+    >
+      <div class="flex flex-row justify-content-flex-start align-items-center">
+        <i class="pi pi-clock mr-3"></i>
+        <span>{{ course.duration }}</span>
+      </div>
+      <div class="flex flex-row justify-content-flex-start align-items-center">
+        <i class="pi pi-calendar mr-3"></i>
+        <span>{{ course.creationDate }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-900 flex flex-row justify-content-between align-items-start">
+    <a
+      href="#"
+      class="flex flex-row justify-content-flex-start align-items-center text-base pr-5 no-underline text-900 custom_text-box"
+    >
+      {{ course.description }}
+    </a>
+    <div
+      class="flex flex-row justify-content-flex-start align-items-center gap-3"
+    >
+      <button (click)="editCourse()" class="custom_button mr-3">
+        <i class="pi pi-pencil text-blue-500"></i>
+      </button>
+      <button (click)="deleteCourse()" class="custom_button mr-3">
+        <i class="pi pi-trash text-red-500"></i>
+      </button>
+    </div>
+  </div>
+</div>

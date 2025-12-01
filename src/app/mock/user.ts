@@ -1,4 +1,4 @@
-import { Users } from '../interfaces/users.interface';
+import { Users } from '../domain/users.interface';
 
 export const user: Users = {
   id: '1',
