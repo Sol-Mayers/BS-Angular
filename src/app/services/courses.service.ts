@@ -1,0 +1,32 @@
+import { Injectable } from '@angular/core';
+import { Courses } from '../domain/courses.interface';
+import { courses } from '../mock/courses';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CoursesService {
+  private courses: Courses[] = [...courses];
+
+  constructor() {}
+
+  public getList(): Courses[] {
+    return this.courses;
+  }
+
+  public createCourse(): void {
+    console.log('course created');
+  }
+
+  public getItemById(): void {
+    console.log('item id');
+  }
+
+  public updateItem(): void {
+    console.log('item is updated');
+  }
+
+  public removeItem(id: string): void {
+    this.courses = this.courses.filter((item) => item.id !== id);
+  }
+}
