@@ -1,7 +1,8 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
 <main
   class="flex flex-row justify-content-center align-items-center py-3 w-full px-6"
 >
-  <div
+  <form
     class="flex flex-column align-items-flex-start w-23rem p-4 border-round-lg bg-white"
   >
     <h2 class="text-2xl font-medium pb-4">Вход</h2>
@@ -13,6 +14,9 @@
         aria-describedby="email-help"
         placeholder="Например user@domain.com"
         class="p-2 p-inputtext mb-4"
+        [value]="loginFormFields.emailText"
+        (input)="loginFormFields.emailText = getEmail($event)"
+        required
       />
       <label for="password" class="mb-2">Пароль*</label>
       <input
@@ -20,14 +24,24 @@
         id="password"
         aria-describedby="password-help"
         placeholder="Ваш пароль"
-        class="p-2 p-inputtext mb-4"
+        class="p-2 p-inputtext"
+        [value]="loginFormFields.passwordText"
+        (input)="loginFormFields.passwordText = getPassword($event)"
+        required
       />
     </div>
     <div class="flex flex-row justify-content-between align-items-center">
       <a href="#" class="underline font-normal text-sm text-primary"
         >Забыли пароль?</a
       >
-      <p-button label="Войти" [disabled]="true" />
+      <button
+        pButton
+        label="Войти"
+        [disabled]="false"
+        class="p-button-primary"
+        (click)="getloginFormFields($event)"
+        type="submit"
+      ></button>
     </div>
-  </div>
+  </form>
 </main>

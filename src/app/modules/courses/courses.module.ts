@@ -13,7 +13,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { RippleModule } from 'primeng/ripple';
     ConfirmDialogModule,
     ToastModule,
     ButtonModule,
-    RippleModule,
   ],
   providers: [ConfirmationService],
   exports: [MainComponent],
