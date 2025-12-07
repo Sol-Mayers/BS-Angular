@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
 <div class="flex border-round-lg font-normal">
   <div class="flex flex-row justify-content-between flex-wrap w-full">
     <div class="flex flex-row justify-content-center">
@@ -13,17 +14,17 @@
         />
       </div>
       <button
-        class="bg-indigo-400 p-3 border-round-sm outline-none border-none text-white ml-2 cursor-pointer"
+        pButton
+        label="Поиск"
+        class="p-button-help ml-3"
         (click)="findCourse()"
-      >
-        Поиск
-      </button>
+      ></button>
     </div>
     <button
-      class="flex flex-row justify-content-center align-items-center bg-blue-500 p-3 border-round-sm outline-none border-none text-white ml-2 cursor-pointer"
-    >
-      <i class="pi pi-plus mr-2"></i>
-      Добавить курс
-    </button>
+      pButton
+      label="Добавить курс"
+      class="p-button-primary"
+      icon="pi pi-check"
+    ></button>
   </div>
 </div>

@@ -48,9 +48,13 @@
       <button (click)="editCourse()" class="custom_button mr-3">
         <i class="pi pi-pencil text-blue-500"></i>
       </button>
-      <button (click)="deleteCourse()" class="custom_button mr-3">
+      <button (click)="showConfirm(course.id)" class="custom_button mr-3">
         <i class="pi pi-trash text-red-500"></i>
       </button>
+      <p-confirmDialog
+        rejectButtonStyleClass="p-button-outlined"
+      ></p-confirmDialog>
+      <p-toast></p-toast>
     </div>
   </div>
 </div>

@@ -4,6 +4,7 @@
   >
     <app-logo></app-logo>
     <div
+      *ngIf="userIsLoggedin"
       id="{{ user.id }}"
       class="ml-2 gap-3 flex flex-row justify-content-between align-items-center"
     >
@@ -14,13 +15,14 @@
         <i class="pi pi-user mr-2"></i>
         <span>{{ user.firstName + " " + user.lastName }}</span>
       </a>
-      <a
-        href="#"
-        class="text-900 no-underline flex flex-row justify-content-center align-items-center"
+      <button
+        pButton
+        class="text-900 no-underline flex flex-row justify-content-center align-items-center p-button-link font-medium"
+        (click)="logout()"
       >
         <i class="pi pi-sign-out mr-2"></i>
         <span>Выход</span>
-      </a>
+      </button>
     </div>
   </div>
 </header>
