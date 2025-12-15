@@ -25,10 +25,10 @@ export class PaintCourseItemDirective implements AfterViewInit {
 
     if (
       creationDate! < currentDate &&
-      creationDate?.getDate() >= currentDate.getDate() - 14
+      (creationDate as Date)?.getDate() >= currentDate.getDate() - 14
     ) {
       this.renderer.setStyle(el, 'border', '1px solid var(--green-300)');
-    } else if (creationDate > currentDate) {
+    } else if (creationDate! > currentDate) {
       this.renderer.setStyle(el, 'border', '1px solid var(--blue-300)');
     }
   }

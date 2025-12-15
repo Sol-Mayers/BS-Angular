@@ -14,6 +14,9 @@ export class MainComponent implements OnInit {
 
   courses: Courses[] = [];
   filter = new FilterPipe();
+  isAddCoursePage = false;
+  // Имитация урлов для хлебных крошек!!!
+  routes: string[] = [];
 
   ngOnInit(): void {
     this.courses = this.coursesService.getList();
@@ -21,5 +24,9 @@ export class MainComponent implements OnInit {
 
   findCourse(text: string): void {
     this.courses = this.filter.transform(courses, 'title', text);
+  }
+
+  addNewCourse(): void {
+    this.isAddCoursePage = true;
   }
 }
