@@ -2,11 +2,14 @@ import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import { nanoid } from 'nanoid';
 import { Courses } from 'src/app/domain/courses.interface';
+import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
   selector: 'app-add-new-course',
@@ -15,7 +18,9 @@ import { Courses } from 'src/app/domain/courses.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddNewCourseComponent implements OnInit {
+  constructor(private readonly coursesService: CoursesService) {}
   @Input() routes: string[] = [];
+  @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   route = 'Новый курс';
   courseFields: Courses = {
@@ -48,8 +53,9 @@ export class AddNewCourseComponent implements OnInit {
     return (event.target as HTMLInputElement).value;
   }
 
-  createNewCourse(event: Event): void {
-    event.preventDefault();
+  addNewCourse(item: boolean): void {
+    this.hideCoursePage.emit(item);
+    this.coursesService.addItem(this.courseFields);
   }
 
   cancelCreateNewCourse(event: Event): void {

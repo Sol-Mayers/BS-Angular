@@ -26,7 +26,7 @@ export class MainComponent implements OnInit {
     this.courses = this.filter.transform(courses, 'title', text);
   }
 
-  addNewCourse(): void {
-    this.isAddCoursePage = true;
+  addNewCourse(item: boolean): void {
+    this.isAddCoursePage = item;
   }
 }

@@ -29,4 +29,8 @@ export class CoursesService {
   public removeItem(id: string): void {
     this.courses = this.courses.filter((item) => item.id !== id);
   }
+
+  public addItem(course: Courses): void {
+    this.courses.unshift(course);
+  }
 }
