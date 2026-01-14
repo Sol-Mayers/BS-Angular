@@ -27,7 +27,7 @@
     >
       <div class="flex flex-row justify-content-flex-start align-items-center">
         <i class="pi pi-clock mr-3"></i>
-        <span>{{ course.duration | duration }}</span>
+        <span>{{ course.duration! | duration }}</span>
       </div>
       <div class="flex flex-row justify-content-flex-start align-items-center">
         <i class="pi pi-calendar mr-3"></i>
@@ -51,10 +51,6 @@
       <button (click)="showConfirm(course.id)" class="custom_button mr-3">
         <i class="pi pi-trash text-red-500"></i>
       </button>
-      <p-confirmDialog
-        rejectButtonStyleClass="p-button-outlined"
-      ></p-confirmDialog>
-      <p-toast></p-toast>
     </div>
   </div>
 </div>

@@ -1,0 +1,17 @@
+<label class="flex flex-column">
+  Продолжительность*
+  <input
+    pInputText
+    type="number"
+    class="w-6"
+    [value]="courseEditingFields.duration || courseFields.duration"
+    (input)="courseFields.duration = getDuration($event)"
+  />
+  <div class="ml-2">
+    {{
+      courseFields.duration
+        ? (courseFields.duration | duration)
+        : (courseEditingFields.duration! | duration)
+    }}
+  </div>
+</label>

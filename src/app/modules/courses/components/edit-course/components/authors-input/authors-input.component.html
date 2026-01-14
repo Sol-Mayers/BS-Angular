@@ -1,0 +1,11 @@
+<label class="flex flex-column">
+  Авторы*
+  <input
+    pInputText
+    class="w-6"
+    [value]="
+      courseEditingFields.authors?.firstName || courseFields.authors?.firstName
+    "
+    (input)="courseFields.authors!.firstName = getAuthors($event)"
+  />
+</label>

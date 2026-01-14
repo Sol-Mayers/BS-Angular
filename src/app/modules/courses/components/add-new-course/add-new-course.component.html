@@ -1,0 +1,50 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<div
+  class="flex flex-column bg-white w-full p-3 border-round-lg font-normal justify-content-center align-items-flex-start"
+>
+  <h2 class="pb-3">Новый курс</h2>
+  <form
+    class="flex flex-column pt-3 justify-content-center align-items-flex-start gap-5"
+  >
+    <input
+      pInputText
+      placeholder="Наименование*"
+      class="w-6"
+      [value]="courseFields.title"
+      (input)="courseFields.title = getName($event)"
+    />
+    <textarea
+      pInputTextarea
+      placeholder="Описание*"
+      class="w-6"
+      [value]="courseFields.description"
+      (input)="courseFields.description = getDescription($event)"
+    ></textarea>
+
+    <app-duration-input [courseFields]="courseFields"></app-duration-input>
+    <input
+      pInputText
+      placeholder="Дата*"
+      type="date"
+      class="w-6"
+      [value]="courseFields.creationDate"
+      (input)="courseFields.creationDate = getDate($event)"
+    />
+    <app-authors-input [courseFields]="courseFields"></app-authors-input>
+    <div class="flex gap-2">
+      <button
+        pButton
+        label="Отмена"
+        class="h-full no-underline text-primary custom_cancel-button"
+        (click)="cancelCreateNewCourse($event)"
+      ></button>
+      <button
+        pButton
+        label="Сохранить"
+        class="p-button-primary h-full no-underline"
+        [disabled]="!createIsAble ? false : true"
+        (click)="addNewCourse(false)"
+      ></button>
+    </div>
+  </form>
+</div>

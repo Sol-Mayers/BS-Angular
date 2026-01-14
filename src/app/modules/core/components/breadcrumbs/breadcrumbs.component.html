@@ -1,6 +1,21 @@
 <div class="flex bg-white w-full p-3 border-round-lg font-normal">
-    <a href="#" class="text-900 no-underline flex flex-row justify-content-center align-items-center">
-        <i class="pi pi-home mr-2"></i>
-        <span>Курсы</span>
-    </a>
+  <a
+    href="#"
+    class="text-900 no-underline flex flex-row justify-content-center align-items-center"
+  >
+    <div class="flex flex-row justify-content-center align-items-center">
+      <i class="pi pi-home mr-2"></i>
+      <span>Курсы</span>
+    </div>
+  </a>
+  <a
+    *ngFor="let route of routes"
+    href="#"
+    class="text-900 no-underline flex flex-row justify-content-center align-items-center"
+  >
+    <div class="flex flex-row justify-content-center align-items-center ml-3">
+      <i class="pi pi-angle-right text-base text-color mr-3"></i>
+      <span>{{ route }}</span>
+    </div>
+  </a>
 </div>
