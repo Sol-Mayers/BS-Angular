@@ -34,7 +34,7 @@
         pInputText
         type="date"
         class="w-6"
-        [value]="editingDateValue || courseFields.creationDate"
+        [value]="courseToEdit.creationDate || courseFields.creationDate"
         (input)="courseFields.creationDate = getDate($event)"
       />
     </label>

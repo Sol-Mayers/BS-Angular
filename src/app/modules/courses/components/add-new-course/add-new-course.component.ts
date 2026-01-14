@@ -54,6 +54,7 @@ export class AddNewCourseComponent implements OnInit {
 
   addNewCourse(item: boolean): void {
     this.hideCoursePage.emit(item);
+    console.log(this.courseFields);
     this.coursesService.addItem(this.courseFields);
   }
 

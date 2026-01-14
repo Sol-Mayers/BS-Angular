@@ -30,6 +30,7 @@ export class MainComponent implements OnInit {
 
   addNewCourse(item: boolean): void {
     this.isAddCoursePage = item;
+    console.log(this.courses);
   }
   editCourse(item: boolean): void {
     this.isEditCoursePage = item;

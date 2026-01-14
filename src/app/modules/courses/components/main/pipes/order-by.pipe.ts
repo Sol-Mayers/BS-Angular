@@ -16,7 +16,7 @@ export class OrderByPipe implements PipeTransform {
       if (typeof av === 'number' && typeof bv === 'number') {
         return (bv as unknown as number) - (av as unknown as number);
       } else if (typeof av === 'string' && typeof bv === 'string') {
-        return av.localeCompare(bv);
+        return bv.localeCompare(av);
       } else {
         return JSON.stringify(bv).localeCompare(JSON.stringify(av));
       }

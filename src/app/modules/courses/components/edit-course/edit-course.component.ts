@@ -22,7 +22,6 @@ export class EditCourseComponent implements OnInit {
   @Input() routes: string[] = [];
   @Input() courseToEdit: Courses = {} as Courses;
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
-  editingDateValue = '';
 
   route = 'Редактировать курс';
   courseFields: Courses = {
@@ -41,9 +40,6 @@ export class EditCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.routes.push(this.route);
-    this.editingDateValue = (this.courseToEdit.creationDate as Date)
-      .toISOString()
-      .slice(0, 10);
     this.courseFields = this.courseToEdit;
   }
 
