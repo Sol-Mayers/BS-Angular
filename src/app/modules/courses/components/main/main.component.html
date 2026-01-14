@@ -3,7 +3,7 @@
     class="flex flex-column justify-content-between w-full m-auto gap-4 custom_main-main-inner"
   >
     <app-breadcrumbs class="w-full" [routes]="routes"></app-breadcrumbs>
-    <ng-container *ngIf="!isAddCoursePage">
+    <ng-container *ngIf="!isAddCoursePage && !isEditCoursePage">
       <div class="flex flex-row justify-content-between w-full">
         <app-search (find)="findCourse($event)"></app-search>
         <app-add-course-button
@@ -13,6 +13,8 @@
       <app-courses
         class="flex flex-column justify-content-start gap-4"
         [courses]="courses"
+        (edit)="editCourse($event)"
+        (courseToEdit)="getCourseToEdit($event)"
       ></app-courses>
       <app-show-more-button class="mx-auto my-0"></app-show-more-button>
     </ng-container>
@@ -21,5 +23,12 @@
       [routes]="routes"
       (hideCoursePage)="addNewCourse($event)"
     ></app-add-new-course>
+    <app-edit-course
+      *ngIf="isEditCoursePage"
+      [routes]="routes"
+      (hideCoursePage)="editCourse($event)"
+      [courseToEdit]="courseToEdit"
+      [courses]="courses"
+    ></app-edit-course>
   </div>
 </main>

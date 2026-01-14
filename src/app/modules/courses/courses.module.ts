@@ -19,7 +19,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DurationInputComponent } from './components/add-new-course/components/duration-input/duration-input.component';
 import { AuthorsInputComponent } from './components/add-new-course/components/authors-input/authors-input.component';
+import { DurationInputEditComponent } from './components/edit-course/components/duration-input/duration-input.component';
+import { AuthorsInputEditComponent } from './components/edit-course/components/authors-input/authors-input.component';
 import { CalendarModule } from 'primeng/calendar';
+import { EditCourseComponent } from './components/edit-course/edit-course.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,10 @@ import { CalendarModule } from 'primeng/calendar';
     AddCourseButtonComponent,
     AddNewCourseComponent,
     DurationInputComponent,
+    DurationInputEditComponent,
+    AuthorsInputEditComponent,
     AuthorsInputComponent,
+    EditCourseComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +52,7 @@ import { CalendarModule } from 'primeng/calendar';
     InputTextModule,
     InputTextareaModule,
     CalendarModule,
+    FormsModule,
   ],
   providers: [ConfirmationService, MessageService],
   exports: [MainComponent],

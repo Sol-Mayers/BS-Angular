@@ -11,25 +11,28 @@ import { Courses } from 'src/app/domain/courses.interface';
 import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
-  selector: 'app-add-new-course',
-  templateUrl: './add-new-course.component.html',
-  styleUrls: ['./add-new-course.component.css'],
+  selector: 'app-edit-course',
+  templateUrl: './edit-course.component.html',
+  styleUrls: ['./edit-course.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddNewCourseComponent implements OnInit {
+export class EditCourseComponent implements OnInit {
   constructor(private readonly coursesService: CoursesService) {}
+  @Input() courses: Courses[] = [];
   @Input() routes: string[] = [];
+  @Input() courseToEdit: Courses = {} as Courses;
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
+  editingDateValue = '';
 
-  route = 'Новый курс';
+  route = 'Редактировать курс';
   courseFields: Courses = {
-    id: nanoid(5),
+    id: '',
     title: '',
     description: '',
     duration: null,
     creationDate: null,
     authors: {
-      id: nanoid(10),
+      id: '',
       firstName: '',
       lastName: '',
     },
@@ -38,6 +41,10 @@ export class AddNewCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.routes.push(this.route);
+    this.editingDateValue = (this.courseToEdit.creationDate as Date)
+      .toISOString()
+      .slice(0, 10);
+    this.courseFields = this.courseToEdit;
   }
 
   getName(event: Event): string {
@@ -52,9 +59,9 @@ export class AddNewCourseComponent implements OnInit {
     return (event.target as HTMLInputElement).value;
   }
 
-  addNewCourse(item: boolean): void {
+  editCourse(item: boolean): void {
     this.hideCoursePage.emit(item);
-    this.coursesService.addItem(this.courseFields);
+    this.coursesService.updateItem(this.courseFields);
   }
 
   cancelCreateNewCourse(event: Event): void {

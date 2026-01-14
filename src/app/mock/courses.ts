@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { Courses } from '../domain/courses.interface';
 
 const getAnyDate = (num: number): Date => {
@@ -17,6 +18,11 @@ export const courses: Courses[] = [
     description:
       'Consectetur veniam non nulla in laboris minim ipsum. Dolor aliqua irure sint do irure magna tempor culpa quis. Deserunt amet occaecat velit sit.',
     topRated: true,
+    authors: {
+      id: nanoid(),
+      firstName: '',
+      lastName: '',
+    },
   },
   {
     id: '2',
@@ -26,6 +32,11 @@ export const courses: Courses[] = [
     description:
       'Sunt culpa officia minim commodo eiusmod irure sunt nostrud. Mollit aliquip id occaecat officia proident anim dolor officia qui voluptate consectetur laborum. Duis incididunt culpa aliqua mollit do fugiat ea dolor mollit irure Lorem tempor.',
     topRated: false,
+    authors: {
+      id: nanoid(),
+      firstName: '',
+      lastName: '',
+    },
   },
   {
     id: '3',
@@ -35,6 +46,11 @@ export const courses: Courses[] = [
     description:
       'Est consequat deserunt officia fugiat culpa in aliquip consectetur. Est nostrud occaecat cillum elit officia officia ea magna et minim officia commodo sunt. Deserunt duis minim magna nostrud enim enim commodo sit elit nostrud cillum aliquip est qui.',
     topRated: false,
+    authors: {
+      id: nanoid(),
+      firstName: '',
+      lastName: '',
+    },
   },
   {
     id: '4',
@@ -44,6 +60,11 @@ export const courses: Courses[] = [
     description:
       'Commodo id sunt sunt adipisicing et aliquip voluptate laborum consectetur. Occaecat nisi sint exercitation ullamco adipisicing irure est in consectetur aute voluptate. Ea pariatur dolor anim ea reprehenderit ut non occaecat magna adipisicing exercitation nisi consequat.',
     topRated: true,
+    authors: {
+      id: nanoid(),
+      firstName: '',
+      lastName: '',
+    },
   },
   {
     id: '5',
@@ -53,5 +74,10 @@ export const courses: Courses[] = [
     description:
       'Est minim ea aute sunt laborum minim eu excepteur. Culpa sint exercitation mollit enim ad culpa aliquip laborum cillum. Dolor officia culpa labore ex eiusmod ut est ea voluptate ea nostrud.',
     topRated: false,
+    authors: {
+      id: nanoid(),
+      firstName: '',
+      lastName: '',
+    },
   },
 ];

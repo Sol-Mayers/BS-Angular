@@ -1,0 +1,61 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<div
+  class="flex flex-column bg-white w-full p-3 border-round-lg font-normal justify-content-center align-items-flex-start"
+>
+  <h2 class="pb-3">Редактировать курс</h2>
+  <form
+    class="flex flex-column pt-3 justify-content-center align-items-flex-start gap-5"
+  >
+    <label class="flex flex-column">
+      Наименование*
+      <input
+        pInputText
+        class="w-6"
+        [value]="courseToEdit.title || courseFields.title"
+        (input)="courseFields.title = getName($event)"
+      />
+    </label>
+    <label class="flex flex-column">
+      Описание*
+      <textarea
+        pInputTextarea
+        class="w-6"
+        [value]="courseToEdit.description || courseFields.description"
+        (input)="courseFields.description = getDescription($event)"
+      ></textarea>
+    </label>
+    <app-duration-edit-input
+      [courseEditingFields]="courseToEdit"
+      [courseFields]="courseFields"
+    ></app-duration-edit-input>
+    <label class="flex flex-column">
+      Дата*
+      <input
+        pInputText
+        type="date"
+        class="w-6"
+        [value]="editingDateValue || courseFields.creationDate"
+        (input)="courseFields.creationDate = getDate($event)"
+      />
+    </label>
+    <app-authors-edit-input
+      [courseEditingFields]="courseToEdit"
+      [courseFields]="courseToEdit"
+    ></app-authors-edit-input>
+    <div class="flex gap-2">
+      <button
+        pButton
+        label="Отмена"
+        class="h-full no-underline text-primary custom_cancel-button"
+        (click)="cancelCreateNewCourse($event)"
+      ></button>
+      <button
+        pButton
+        label="Сохранить"
+        class="p-button-primary h-full no-underline"
+        [disabled]="!createIsAble ? false : true"
+        (click)="editCourse(false)"
+      ></button>
+    </div>
+  </form>
+</div>

@@ -22,8 +22,14 @@ export class CoursesService {
     console.log('item id');
   }
 
-  public updateItem(): void {
-    console.log('item is updated');
+  public updateItem(item: Courses): void {
+    this.courses = this.courses.map((courseItem) => {
+      if (courseItem.id == item.id) {
+        return item;
+      } else {
+        return courseItem;
+      }
+    });
   }
 
   public removeItem(id: string): void {

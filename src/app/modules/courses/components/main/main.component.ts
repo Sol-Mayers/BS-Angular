@@ -13,8 +13,10 @@ export class MainComponent implements OnInit {
   constructor(private readonly coursesService: CoursesService) {}
 
   courses: Courses[] = [];
+  courseToEdit: Courses = {} as Courses;
   filter = new FilterPipe();
   isAddCoursePage = false;
+  isEditCoursePage = false;
   // Имитация урлов для хлебных крошек!!!
   routes: string[] = [];
 
@@ -28,5 +30,11 @@ export class MainComponent implements OnInit {
 
   addNewCourse(item: boolean): void {
     this.isAddCoursePage = item;
+  }
+  editCourse(item: boolean): void {
+    this.isEditCoursePage = item;
+  }
+  getCourseToEdit(item: Courses): void {
+    this.courseToEdit = item;
   }
 }
