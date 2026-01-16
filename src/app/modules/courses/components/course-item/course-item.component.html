@@ -10,8 +10,7 @@
   <div
     class="text-900 flex flex-row justify-content-between align-items-center w-full"
   >
-    <a
-      href="#"
+    <div
       class="flex flex-row justify-content-flex-start align-items-center mr-5 no-underline text-900"
     >
       <h2 class="text-2xl custom_text-box">{{ course.title | uppercase }}</h2>
@@ -21,7 +20,7 @@
           hidden: !course.topRated
         }"
       ></i>
-    </a>
+    </div>
     <div
       class="flex flex-row justify-content-flex-start align-items-center gap-3 text-600"
     >
@@ -36,18 +35,23 @@
     </div>
   </div>
   <div class="text-900 flex flex-row justify-content-between align-items-start">
-    <a
-      href="#"
+    <div
       class="flex flex-row justify-content-flex-start align-items-center text-base pr-5 no-underline text-900 custom_text-box"
     >
       {{ course.description }}
-    </a>
+    </div>
     <div
       class="flex flex-row justify-content-flex-start align-items-center gap-3"
     >
-      <button (click)="editCourse()" class="custom_button mr-3">
+      <!-- <button (click)="editCourse()" class="custom_button mr-3">
         <i class="pi pi-pencil text-blue-500"></i>
-      </button>
+      </button> -->
+      <a
+        [routerLink]="['/courses', course.id]"
+        routerLinkActive="active"
+        class="custom_button mr-3"
+        ><i class="pi pi-pencil text-blue-500"></i
+      ></a>
       <button (click)="showConfirm(course.id)" class="custom_button mr-3">
         <i class="pi pi-trash text-red-500"></i>
       </button>

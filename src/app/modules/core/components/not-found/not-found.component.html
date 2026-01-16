@@ -9,7 +9,9 @@
     </div>
     <div class="text-2xl">Ничего не найдено</div>
     <button
-      class="flex flex-row justify-content-center align-items-center bg-blue-500 p-3 border-round-sm outline-none border-none text-white cursor-pointer"
+      (click)="resetFilters()"
+      pButton
+      class="p-element p-button-primary h-full no-underline p-button p-component"
     >
       Сбросить фильтры
     </button>

@@ -51,10 +51,12 @@
       ></button>
       <button
         pButton
+        routerLink="/courses"
+        routerLinkActive="active"
         label="Сохранить"
         class="p-button-primary h-full no-underline"
         [disabled]="!createIsAble ? false : true"
-        (click)="editCourse(false)"
+        (click)="editCourse()"
       ></button>
     </div>
   </form>

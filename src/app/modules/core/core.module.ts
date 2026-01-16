@@ -7,6 +7,9 @@ import { LogoComponent } from './components/logo/logo.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ShowMoreButtonComponent } from './components/show-more-button/show-more-button.component';
 import { ButtonModule } from 'primeng/button';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,8 +19,9 @@ import { ButtonModule } from 'primeng/button';
     LogoComponent,
     NotFoundComponent,
     ShowMoreButtonComponent,
+    NotFoundPageComponent,
   ],
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, RouterModule],
   exports: [
     BreadcrumbsComponent,
     FooterComponent,

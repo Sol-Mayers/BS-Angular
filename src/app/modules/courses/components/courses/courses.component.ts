@@ -18,6 +18,7 @@ export class CoursesComponent {
   @Input() courses: Courses[] = [];
   @Output() edit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() courseToEdit: EventEmitter<Courses> = new EventEmitter<Courses>();
+  @Output() resetAll: EventEmitter<void> = new EventEmitter<void>();
 
   deleteCourse(id: string): void {
     this.coursesService.removeItem(id);
@@ -49,5 +50,9 @@ export class CoursesComponent {
       acceptLabel: 'Да',
       rejectLabel: 'Нет',
     });
+  }
+
+  resetFilters() {
+    this.resetAll.emit();
   }
 }

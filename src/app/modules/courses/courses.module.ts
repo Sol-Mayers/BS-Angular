@@ -24,6 +24,9 @@ import { AuthorsInputEditComponent } from './components/edit-course/components/a
 import { CalendarModule } from 'primeng/calendar';
 import { EditCourseComponent } from './components/edit-course/edit-course.component';
 import { FormsModule } from '@angular/forms';
+import { CoursesMainRoutingModule } from './courses-main-routing.module';
+import { BreadcrumbsComponent } from '../core/components/breadcrumbs/breadcrumbs.component';
+import { CoursesMainComponent } from './courses-main.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import { FormsModule } from '@angular/forms';
     AuthorsInputEditComponent,
     AuthorsInputComponent,
     EditCourseComponent,
+    CoursesMainComponent,
   ],
   imports: [
     CommonModule,
@@ -53,6 +57,7 @@ import { FormsModule } from '@angular/forms';
     InputTextareaModule,
     CalendarModule,
     FormsModule,
+    CoursesMainRoutingModule,
   ],
   providers: [ConfirmationService, MessageService],
   exports: [MainComponent],
