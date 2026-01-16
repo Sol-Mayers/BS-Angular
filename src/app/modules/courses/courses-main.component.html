@@ -1,8 +1,11 @@
 <main class="flex py-3 w-full px-6">
   <div
-    class="flex flex-column justify-content-between w-full m-auto gap-4 custom_main-main-inner"
+    class="flex flex-column justify-content-between w-full m-auto custom_main-main-inner"
   >
-    <!-- <app-breadcrumbs class="w-full" [routes]="routes"></app-breadcrumbs> -->
+    <app-breadcrumbs
+      class="w-full mb-4"
+      [breadcrumbs]="breadcrumbs"
+    ></app-breadcrumbs>
     <router-outlet></router-outlet>
   </div>
 </main>

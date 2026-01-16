@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { nanoid } from 'nanoid';
 import { Courses } from 'src/app/domain/courses.interface';
+import { BreadcrumbsService } from 'src/app/services/breadcrumbs.service';
 import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
@@ -20,15 +21,16 @@ import { CoursesService } from 'src/app/services/courses.service';
 export class EditCourseComponent implements OnInit {
   constructor(
     private readonly coursesService: CoursesService,
-    private currentRoute: ActivatedRoute
+    private currentRoute: ActivatedRoute,
+    private readonly breadcrumbService: BreadcrumbsService
   ) {}
+
   @Input() courses: Courses[] = [];
-  @Input() routes: string[] = [];
   @Input() courseToEdit: Courses = {} as Courses;
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   currentId: string | null = null;
-  route = 'Редактировать курс';
+  // route = 'Редактировать курс';
   courseFields: Courses = {
     id: '',
     title: '',
@@ -45,10 +47,13 @@ export class EditCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.courses = this.coursesService.getList();
-    this.routes.push(this.route);
     const idParam = this.currentRoute.snapshot.paramMap.get('id');
     this.currentId = idParam ? idParam : null;
     this.courseFields = this.courses.find((item) => item.id == this.currentId)!;
+
+    this.breadcrumbService.emit(this.courseFields.title);
+    // const currentBreadcrumbs = this.breadcrumbService.getCurrentBreadcrumbs();
+    // this.breadcrumbs = [...currentBreadcrumbs];
   }
 
   getName(event: Event): string {

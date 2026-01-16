@@ -25,7 +25,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { EditCourseComponent } from './components/edit-course/edit-course.component';
 import { FormsModule } from '@angular/forms';
 import { CoursesMainRoutingModule } from './courses-main-routing.module';
-import { BreadcrumbsComponent } from '../core/components/breadcrumbs/breadcrumbs.component';
 import { CoursesMainComponent } from './courses-main.component';
 
 @NgModule({

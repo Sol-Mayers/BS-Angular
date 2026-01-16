@@ -18,8 +18,8 @@ export class MainComponent implements OnInit {
   courses: Courses[] = [];
   courseToEdit: Courses = {} as Courses;
   filter = new FilterPipe();
-  // Имитация урлов для хлебных крошек!!!
-  routes: string[] = [];
+  // // Имитация урлов для хлебных крошек!!!
+  // routes: string[] = [];
 
   ngOnInit(): void {
     this.courses = this.coursesService.getList();

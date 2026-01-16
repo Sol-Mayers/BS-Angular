@@ -55,8 +55,4 @@ export class AddNewCourseComponent implements OnInit {
   addNewCourse(): void {
     this.coursesService.addItem(this.courseFields);
   }
-
-  cancelCreateNewCourse(event: Event): void {
-    event.preventDefault();
-  }
 }

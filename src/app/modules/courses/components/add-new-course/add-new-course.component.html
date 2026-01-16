@@ -33,10 +33,11 @@
     <app-authors-input [courseFields]="courseFields"></app-authors-input>
     <div class="flex gap-2">
       <button
+        routerLink="/courses"
+        routerLinkActive="active"
         pButton
         label="Отмена"
         class="h-full no-underline text-primary custom_cancel-button"
-        (click)="cancelCreateNewCourse($event)"
       ></button>
       <button
         pButton

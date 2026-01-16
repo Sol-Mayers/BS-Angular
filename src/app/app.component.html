@@ -5,8 +5,8 @@
     class="z-1"
   ></app-header>
   <!-- <app-main *ngIf="userIsLoggedin" class="custom_main surface-200"></app-main> -->
-  <div class="custom_main surface-200">
-    <router-outlet *ngIf="userIsLoggedin"></router-outlet>
+  <div *ngIf="userIsLoggedin" class="custom_main surface-200">
+    <router-outlet></router-outlet>
   </div>
   <app-login
     *ngIf="!userIsLoggedin"

@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class BreadcrumbsComponent {
   //Имитация урлов для хлебных крошек!!!
-  @Input() routes: string[] = [];
+  @Input() breadcrumbs: string[] = [];
 }
