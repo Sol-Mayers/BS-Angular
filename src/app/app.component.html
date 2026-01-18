@@ -1,17 +1,9 @@
 <div class="flex flex-column min-h-screen">
-  <app-header
-    [userIsLoggedin]="userIsLoggedin"
-    (userLogout)="logout()"
-    class="z-1"
-  ></app-header>
+  <app-header (userLogout)="logout()" class="z-1"></app-header>
   <!-- <app-main *ngIf="userIsLoggedin" class="custom_main surface-200"></app-main> -->
-  <div *ngIf="userIsLoggedin" class="custom_main surface-200">
+  <!-- <div *ngIf="userIsLoggedin" class="custom_main surface-200"> -->
+  <div class="custom_main surface-200 align-content-center">
     <router-outlet></router-outlet>
   </div>
-  <app-login
-    *ngIf="!userIsLoggedin"
-    (getFields)="getloginFormFields($event)"
-    class="custom_main surface-200 flex flex-row justify-content-center align-items-center"
-  ></app-login>
   <app-footer class="z-1"></app-footer>
 </div>
