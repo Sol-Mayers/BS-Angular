@@ -1,34 +1,24 @@
-<main class="flex py-3 w-full px-6">
-  <div
-    class="flex flex-column justify-content-between w-full m-auto gap-4 custom_main-main-inner"
-  >
-    <app-breadcrumbs class="w-full" [routes]="routes"></app-breadcrumbs>
-    <ng-container *ngIf="!isAddCoursePage && !isEditCoursePage">
-      <div class="flex flex-row justify-content-between w-full">
-        <app-search (find)="findCourse($event)"></app-search>
-        <app-add-course-button
-          (addCourse)="addNewCourse(true)"
-        ></app-add-course-button>
-      </div>
-      <app-courses
-        class="flex flex-column justify-content-start gap-4"
-        [courses]="courses"
-        (edit)="editCourse($event)"
-        (courseToEdit)="getCourseToEdit($event)"
-      ></app-courses>
-      <app-show-more-button class="mx-auto my-0"></app-show-more-button>
-    </ng-container>
-    <app-add-new-course
-      *ngIf="isAddCoursePage"
-      [routes]="routes"
-      (hideCoursePage)="addNewCourse($event)"
-    ></app-add-new-course>
-    <app-edit-course
-      *ngIf="isEditCoursePage"
-      [routes]="routes"
-      (hideCoursePage)="editCourse($event)"
-      [courseToEdit]="courseToEdit"
-      [courses]="courses"
-    ></app-edit-course>
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<!-- <app-breadcrumbs class="w-full" [routes]="routes"></app-breadcrumbs> -->
+<ng-container>
+  <div class="flex flex-row justify-content-between w-full">
+    <app-search (find)="findCourse($event)" #searchComponent></app-search>
+    <a
+      routerLink="/courses/new"
+      routerLinkActive="active"
+      pButton
+      label="Добавить курс"
+      class="p-button-primary h-full no-underline"
+      icon="pi pi-check"
+    ></a>
   </div>
-</main>
+  <app-courses
+    class="flex flex-column justify-content-start gap-4 mt-4"
+    [courses]="courses"
+    (courseToEdit)="getCourseToEdit($event)"
+    (resetAll)="resetFilters()"
+  ></app-courses>
+  <app-show-more-button
+    class="mx-auto my-0 flex justify-content-center"
+  ></app-show-more-button>
+</ng-container>

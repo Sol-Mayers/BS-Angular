@@ -52,13 +52,7 @@ export class AddNewCourseComponent implements OnInit {
     return (event.target as HTMLInputElement).value;
   }
 
-  addNewCourse(item: boolean): void {
-    this.hideCoursePage.emit(item);
-    console.log(this.courseFields);
+  addNewCourse(): void {
     this.coursesService.addItem(this.courseFields);
-  }
-
-  cancelCreateNewCourse(event: Event): void {
-    event.preventDefault();
   }
 }

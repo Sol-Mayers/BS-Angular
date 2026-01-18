@@ -1,6 +1,7 @@
 <div class="flex bg-white w-full p-3 border-round-lg font-normal">
   <a
-    href="#"
+    routerLink="/courses"
+    routerLinkActive="active"
     class="text-900 no-underline flex flex-row justify-content-center align-items-center"
   >
     <div class="flex flex-row justify-content-center align-items-center">
@@ -8,14 +9,16 @@
       <span>Курсы</span>
     </div>
   </a>
-  <a
-    *ngFor="let route of routes"
-    href="#"
+  <div
+    *ngFor="let breadcrumb of breadcrumbs"
     class="text-900 no-underline flex flex-row justify-content-center align-items-center"
   >
     <div class="flex flex-row justify-content-center align-items-center ml-3">
-      <i class="pi pi-angle-right text-base text-color mr-3"></i>
-      <span>{{ route }}</span>
+      <i
+        *ngIf="breadcrumb"
+        class="pi pi-angle-right text-base text-color mr-3"
+      ></i>
+      <span>{{ breadcrumb }}</span>
     </div>
-  </a>
+  </div>
 </div>

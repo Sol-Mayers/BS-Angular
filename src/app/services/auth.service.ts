@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { loginFormFields } from '../domain/loginFormFields.interface';
 import { EncryptionService } from './encryption.service';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,23 @@ export class AuthService {
   private readonly token = () => {
     return this.Encription.generateToken();
   };
+
+  // Превращаем флаг авторизации в BehaviorSubject
+  private readonly _isAuthSubject = new BehaviorSubject<boolean>(
+    this.checkInitialAuth()
+  );
+  // Публичный observable для подписки
+  public readonly isAuth$: Observable<boolean> =
+    this._isAuthSubject.asObservable();
+
+  // Текущее значение можно получить через свойство value
+  public get isAuth(): boolean {
+    return this._isAuthSubject.value;
+  }
+
+  private checkInitialAuth(): boolean {
+    return localStorage.getItem('userInfo') !== null;
+  }
 
   public login(loginFormFields: loginFormFields): void {
     let hasEmptyFields = false;
@@ -43,17 +61,27 @@ export class AuthService {
 
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
     console.log('Выполнен вход в систему');
+
+    // Обновляем состояние авторизации
+    this._isAuthSubject.next(true);
   }
 
   public logout(): void {
-    console.log(
-      `Выход ${JSON.parse(localStorage.getItem('userInfo') || '').email}`
-    );
+    const current = localStorage.getItem('userInfo');
+    if (current) {
+      const parsed = JSON.parse(current);
+      console.log(`Выход ${parsed.email}`);
+    } else {
+      console.log('Выход: пользователь не был авторизован');
+    }
     localStorage.removeItem('userInfo');
+
+    // Обновляем состояние авторизации
+    this._isAuthSubject.next(false);
   }
 
   public isAuthenticated(): boolean {
-    return localStorage.getItem('userInfo') !== null;
+    return this._isAuthSubject.value;
   }
 
   public getUserInfo(): void {

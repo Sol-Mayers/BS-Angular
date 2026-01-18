@@ -45,16 +45,20 @@
     <div class="flex gap-2">
       <button
         pButton
+        routerLink="/courses"
+        routerLinkActive="active"
         label="Отмена"
         class="h-full no-underline text-primary custom_cancel-button"
         (click)="cancelCreateNewCourse($event)"
       ></button>
       <button
         pButton
+        routerLink="/courses"
+        routerLinkActive="active"
         label="Сохранить"
         class="p-button-primary h-full no-underline"
         [disabled]="!createIsAble ? false : true"
-        (click)="editCourse(false)"
+        (click)="editCourse()"
       ></button>
     </div>
   </form>

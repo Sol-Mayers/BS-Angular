@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
+import { AppRoutingModule } from './app-routing.module';
 
 registerLocaleData(localeRu);
 
@@ -26,6 +27,7 @@ registerLocaleData(localeRu);
     InputNumberModule,
     InputTextareaModule,
     CalendarModule,
+    AppRoutingModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
   bootstrap: [AppComponent],

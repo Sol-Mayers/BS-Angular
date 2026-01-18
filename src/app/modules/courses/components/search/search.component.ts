@@ -16,4 +16,8 @@ export class SearchComponent {
   findCourse(): void {
     this.find.emit(this.inputText);
   }
+
+  clearInput(): void {
+    this.inputText = '';
+  }
 }

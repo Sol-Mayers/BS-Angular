@@ -14,8 +14,4 @@ import { Courses } from 'src/app/domain/courses.interface';
 })
 export class AddCourseButtonComponent {
   @Output() addCourse: EventEmitter<Courses> = new EventEmitter<Courses>();
-
-  addNewCourse(): void {
-    this.addCourse.emit();
-  }
 }

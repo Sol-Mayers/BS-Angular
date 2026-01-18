@@ -33,17 +33,20 @@
     <app-authors-input [courseFields]="courseFields"></app-authors-input>
     <div class="flex gap-2">
       <button
+        routerLink="/courses"
+        routerLinkActive="active"
         pButton
         label="Отмена"
         class="h-full no-underline text-primary custom_cancel-button"
-        (click)="cancelCreateNewCourse($event)"
       ></button>
       <button
         pButton
+        routerLink="/courses"
+        routerLinkActive="active"
         label="Сохранить"
         class="p-button-primary h-full no-underline"
         [disabled]="!createIsAble ? false : true"
-        (click)="addNewCourse(false)"
+        (click)="addNewCourse()"
       ></button>
     </div>
   </form>

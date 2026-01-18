@@ -1,5 +1,5 @@
 <!-- eslint-disable @angular-eslint/template/elements-content -->
-<main
+<div
   class="flex flex-row justify-content-center align-items-center py-3 w-full px-6"
 >
   <form
@@ -36,6 +36,8 @@
       >
       <button
         pButton
+        routerLink="/courses"
+        routerLinkActive="active"
         label="Войти"
         [disabled]="false"
         class="p-button-primary"
@@ -44,4 +46,4 @@
       ></button>
     </div>
   </form>
-</main>
+</div>
