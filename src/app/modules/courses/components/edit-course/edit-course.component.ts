@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { nanoid } from 'nanoid';
+import { map, Observable, take, tap } from 'rxjs';
 import { Courses } from 'src/app/domain/courses.interface';
 import { BreadcrumbsService } from 'src/app/services/breadcrumbs.service';
 import { CoursesService } from 'src/app/services/courses.service';
@@ -25,35 +26,35 @@ export class EditCourseComponent implements OnInit {
     private readonly breadcrumbService: BreadcrumbsService
   ) {}
 
-  @Input() courses: Courses[] = [];
-  @Input() courseToEdit: Courses = {} as Courses;
+  courses: Observable<Courses[]> = this.coursesService.getList();
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   currentId: string | null = null;
-  // route = 'Редактировать курс';
-  courseFields: Courses = {
-    id: '',
-    title: '',
-    description: '',
-    duration: null,
-    creationDate: null,
-    authors: {
-      id: '',
-      firstName: '',
-      lastName: '',
-    },
-  };
+  courseFields!: Observable<Courses | null>;
   createIsAble = false;
 
-  ngOnInit(): void {
-    this.courses = this.coursesService.getList();
-    const idParam = this.currentRoute.snapshot.paramMap.get('id');
-    this.currentId = idParam ? idParam : null;
-    this.courseFields = this.courses.find((item) => item.id == this.currentId)!;
+  getCourseFields(): Observable<Courses | null> {
+    return this.courses.pipe(
+      map((list) => list?.find((c) => c.id == this.currentId) ?? null)
+    );
+  }
 
-    this.breadcrumbService.emit(this.courseFields.title);
-    // const currentBreadcrumbs = this.breadcrumbService.getCurrentBreadcrumbs();
-    // this.breadcrumbs = [...currentBreadcrumbs];
+  ngOnInit(): void {
+    const idParam = this.currentRoute.snapshot.paramMap.get('id');
+    this.currentId = idParam ?? null;
+    this.courseFields = this.courses.pipe(
+      map(
+        (list) =>
+          list?.find((c) => {
+            return c.id == this.currentId;
+          }) ?? null
+      ),
+      tap((course) => {
+        if (course) {
+          this.breadcrumbService.emit(course.title);
+        }
+      })
+    );
   }
 
   getName(event: Event): string {
@@ -69,7 +70,11 @@ export class EditCourseComponent implements OnInit {
   }
 
   editCourse(): void {
-    this.coursesService.updateItem(this.courseFields);
+    this.courseFields.pipe(take(1)).subscribe((value) => {
+      console.log('current value:', value);
+      this.coursesService.updateItem(value!);
+    });
+    // this.coursesService.updateItem(this.courseFields!);
   }
 
   cancelCreateNewCourse(event: Event): void {

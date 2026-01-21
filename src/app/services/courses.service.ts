@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Courses } from '../domain/courses.interface';
-import { courses } from '../mock/courses';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  private courses: Courses[] = [...courses];
+  private readonly coursesUrl = '/api';
+  // private courses: Courses[] = [...courses];
 
-  constructor() {}
+  constructor(private readonly httpClient: HttpClient) {}
 
-  public getList(): Courses[] {
-    return this.courses;
+  public getList(params?: Params): Observable<Courses[]> {
+    return this.httpClient.get<Courses[]>(`${this.coursesUrl}/courses`, {
+      params,
+    });
   }
 
   public createCourse(): void {
@@ -23,20 +28,23 @@ export class CoursesService {
   }
 
   public updateItem(item: Courses): void {
-    this.courses = this.courses.map((courseItem) => {
-      if (courseItem.id == item.id) {
-        return item;
-      } else {
-        return courseItem;
-      }
-    });
+    // this.courses = this.courses.map((courseItem) => {
+    //   if (courseItem.id == item.id) {
+    //     return item;
+    //   } else {
+    //     return courseItem;
+    //   }
+    // });
+    this.httpClient.put(`${this.coursesUrl}/courses/${item.id}`, item);
   }
 
   public removeItem(id: string): void {
-    this.courses = this.courses.filter((item) => item.id !== id);
+    // this.courses = this.courses.filter((item) => item.id !== id);
+    this.httpClient.delete(`${this.coursesUrl}/courses/${id}`);
   }
 
-  public addItem(course: Courses): void {
-    this.courses.unshift(course);
+  public addItem(course: Courses): Observable<Courses> {
+    // this.courses.unshift(course);
+    return this.httpClient.post<Courses>(`${this.coursesUrl}/courses`, course);
   }
 }

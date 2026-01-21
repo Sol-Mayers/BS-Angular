@@ -7,6 +7,6 @@ export interface Courses {
   duration: number | null;
   description: string;
   topRated?: boolean;
-  authors?: Users;
+  authors?: Users[];
   //временно поставлена опциональность
 }

@@ -4,6 +4,7 @@
 >
   <h2 class="pb-3">Редактировать курс</h2>
   <form
+    *ngIf="courseFields | async as course"
     class="flex flex-column pt-3 justify-content-center align-items-flex-start gap-5"
   >
     <label class="flex flex-column">
@@ -11,8 +12,8 @@
       <input
         pInputText
         class="w-6"
-        [value]="courseToEdit.title || courseFields.title"
-        (input)="courseFields.title = getName($event)"
+        [value]="course?.title ?? ''"
+        (input)="course.title = getName($event)"
       />
     </label>
     <label class="flex flex-column">
@@ -20,28 +21,26 @@
       <textarea
         pInputTextarea
         class="w-6"
-        [value]="courseToEdit.description || courseFields.description"
-        (input)="courseFields.description = getDescription($event)"
+        [value]="course?.description ?? ''"
+        (input)="course.description = getDescription($event)"
       ></textarea>
     </label>
-    <app-duration-edit-input
-      [courseEditingFields]="courseToEdit"
-      [courseFields]="courseFields"
-    ></app-duration-edit-input>
+    <app-duration-edit-input [courseFields]="course"></app-duration-edit-input>
     <label class="flex flex-column">
       Дата*
       <input
         pInputText
         type="date"
         class="w-6"
-        [value]="courseToEdit.creationDate || courseFields.creationDate"
-        (input)="courseFields.creationDate = getDate($event)"
+        [value]="
+          course?.creationDate
+            ? (course.creationDate | date : 'yyyy-MM-dd')
+            : ''
+        "
+        (input)="course.creationDate = getDate($event)"
       />
     </label>
-    <app-authors-edit-input
-      [courseEditingFields]="courseToEdit"
-      [courseFields]="courseToEdit"
-    ></app-authors-edit-input>
+    <app-authors-edit-input [courseFields]="course"></app-authors-edit-input>
     <div class="flex gap-2">
       <button
         pButton

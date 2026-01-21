@@ -2,6 +2,6 @@
   pInputText
   placeholder="Авторы*"
   class="w-6"
-  [value]="courseFields.authors?.firstName"
-  (input)="courseFields.authors!.firstName = getAuthors($event)"
+  [value]="authors"
+  (input)="authors = getAuthors($event)"
 />

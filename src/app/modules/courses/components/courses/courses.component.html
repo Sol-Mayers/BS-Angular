@@ -2,11 +2,11 @@
 
 <div class="flex flex-column align-items-flex-start gap-4">
   <app-not-found
-    *ngIf="!courses.length"
+    *ngIf="(courses ?? []).length === 0"
     (resetAll)="resetFilters()"
   ></app-not-found>
   <app-course-item
-    *ngFor="let course of courses | orderBy : 'creationDate'"
+    *ngFor="let course of courses ?? [] | orderBy : 'creationDate'"
     [course]="course"
     (delete)="deleteCourse($event)"
     (edit)="editCourse($event)"

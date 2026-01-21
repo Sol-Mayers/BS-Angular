@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Courses } from 'src/app/domain/courses.interface';
 
 @Component({
@@ -7,13 +12,22 @@ import { Courses } from 'src/app/domain/courses.interface';
   styleUrls: ['./authors-input.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthorsInputEditComponent {
+export class AuthorsInputEditComponent implements OnInit {
   @Input() courseFields: Courses = {} as Courses;
-  @Input() courseEditingFields: Courses = {} as Courses;
+  authors = '';
 
+  ngOnInit(): void {
+    this.authors =
+      this.courseFields.authors
+        ?.map(
+          (author) =>
+            (author.firstName ? author.firstName : '') +
+            ' ' +
+            (author.lastName ? author.lastName : '')
+        )
+        .join(', ') ?? '';
+  }
   getAuthors(event: Event): string {
-    console.log(this.courseFields);
-    this.courseFields.authors!.lastName = 'Фамилия';
     return (event.target as HTMLInputElement).value;
   }
 }

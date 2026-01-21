@@ -6,6 +6,7 @@ import localeRu from '@angular/common/locales/ru';
 import { CoreModule } from './modules/core/core.module';
 import { CoursesModule } from './modules/courses/courses.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/login/login.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -28,6 +29,7 @@ registerLocaleData(localeRu);
     InputTextareaModule,
     CalendarModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
   bootstrap: [AppComponent],

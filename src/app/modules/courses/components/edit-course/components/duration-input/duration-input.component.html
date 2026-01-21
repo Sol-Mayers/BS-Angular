@@ -4,14 +4,10 @@
     pInputText
     type="number"
     class="w-6"
-    [value]="courseEditingFields.duration || courseFields.duration"
+    [value]="courseFields ? courseFields.duration : ''"
     (input)="courseFields.duration = getDuration($event)"
   />
   <div class="ml-2">
-    {{
-      courseFields.duration
-        ? (courseFields.duration | duration)
-        : (courseEditingFields.duration! | duration)
-    }}
+    {{ courseFields ? (courseFields.duration! | duration) : "" }}
   </div>
 </label>

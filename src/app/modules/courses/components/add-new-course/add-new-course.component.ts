@@ -28,11 +28,12 @@ export class AddNewCourseComponent implements OnInit {
     description: '',
     duration: null,
     creationDate: null,
-    authors: {
-      id: nanoid(10),
-      firstName: '',
-      lastName: '',
-    },
+    // authors: {
+    //   id: nanoid(5),
+    //   firstName: '',
+    //   lastName: '',
+    // },
+    authors: [],
   };
   createIsAble = false;
 
