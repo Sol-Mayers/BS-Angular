@@ -17,19 +17,14 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class CourseItemComponent {
   @Input() course: Courses = {} as Courses;
-  @Output() delete: EventEmitter<string> = new EventEmitter<string>();
   @Output() edit: EventEmitter<Courses> = new EventEmitter<Courses>();
   @Output() confirm: EventEmitter<string> = new EventEmitter<string>();
-
-  deleteCourse(id: string): void {
-    this.delete.emit(id);
-  }
 
   editCourse(): void {
     this.edit.emit(this.course);
   }
 
-  showConfirm(id: string): void {
+  showDeleteConfirm(id: string): void {
     this.confirm.emit(id);
   }
 }

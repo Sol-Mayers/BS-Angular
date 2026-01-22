@@ -3,8 +3,9 @@ import { Courses } from 'src/app/domain/courses.interface';
 import { FilterPipe } from '../search/pipes/filter.pipe';
 import { CoursesService } from 'src/app/services/courses.service';
 import { SearchComponent } from '../search/search.component';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-main',
@@ -12,15 +13,18 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  constructor(private readonly coursesService: CoursesService) {}
+  constructor(
+    private readonly coursesService: CoursesService,
+    private readonly confirmationService: ConfirmationService,
+    private readonly messageService: MessageService
+  ) {}
 
   @ViewChild('searchComponent') child!: SearchComponent;
 
   courses: Observable<Courses[]> | null = null;
   courseToEdit: Courses = {} as Courses;
   filter = new FilterPipe();
-  // // Имитация урлов для хлебных крошек!!!
-  // routes: string[] = [];
+  isNotFound = false;
 
   ngOnInit(): void {
     this.courses = this.coursesService.getList();
@@ -28,8 +32,14 @@ export class MainComponent implements OnInit {
 
   findCourse(text: string): void {
     // this.courses = this.filter.transform(courses, 'title', text);
-    const params = new HttpParams().set('title', text).set('description', text);
-    this.courses = this.coursesService.getList({ params });
+    this.courses = this.coursesService.getList(text);
+    this.courses.subscribe((data) => {
+      if (data.length === 0) {
+        this.isNotFound = true;
+      } else {
+        this.isNotFound = false;
+      }
+    });
   }
   getCourseToEdit(item: Courses): void {
     this.courseToEdit = item;
@@ -37,9 +47,24 @@ export class MainComponent implements OnInit {
   resetFilters() {
     this.courses = this.coursesService.getList();
     this.child.clearInput();
+    this.isNotFound = false;
   }
-  deleteCourse(id: string): void {
-    this.coursesService.removeItem(id);
-    this.courses = this.coursesService.getList();
+  showDeleteConfirm(id: string): void {
+    this.confirmationService.confirm({
+      message: 'Вы действительно хотите удалить этот курс?',
+      header: 'Подтвердите удаление',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.coursesService.removeItem(id).pipe(take(1)).subscribe();
+        this.courses = this.coursesService.getList();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Подтверждено',
+          detail: 'Курс удалён',
+        });
+      },
+      acceptLabel: 'Да',
+      rejectLabel: 'Нет',
+    });
   }
 }

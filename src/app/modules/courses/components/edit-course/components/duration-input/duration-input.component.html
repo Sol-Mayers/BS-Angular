@@ -5,7 +5,7 @@
     type="number"
     class="w-6"
     [value]="courseFields ? courseFields.duration : ''"
-    (input)="courseFields.duration = getDuration($event)"
+    (input)="editedCourseFields.duration = getDuration($event)"
   />
   <div class="ml-2">
     {{ courseFields ? (courseFields.duration! | duration) : "" }}

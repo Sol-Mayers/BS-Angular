@@ -21,7 +21,19 @@
       (input)="courseFields.description = getDescription($event)"
     ></textarea>
 
-    <app-duration-input [courseFields]="courseFields"></app-duration-input>
+    <label class="flex flex-column">
+      <input
+        pInputText
+        placeholder="Продолжительность*"
+        type="number"
+        class="w-6"
+        [value]="courseFields.duration"
+        (input)="courseFields.duration = getDuration($event)"
+      />
+      <div *ngIf="courseFields.duration" class="ml-2">
+        {{ (courseFields.duration | duration) ?? "" }}
+      </div>
+    </label>
     <input
       pInputText
       placeholder="Дата*"
@@ -30,7 +42,12 @@
       [value]="courseFields.creationDate"
       (input)="courseFields.creationDate = getDate($event)"
     />
-    <app-authors-input [courseFields]="courseFields"></app-authors-input>
+    <input
+      pInputText
+      placeholder="Авторы*"
+      class="w-6"
+      [value]="courseFields.authors"
+    />
     <div class="flex gap-2">
       <button
         routerLink="/courses"

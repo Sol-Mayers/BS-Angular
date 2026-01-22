@@ -13,7 +13,7 @@
         pInputText
         class="w-6"
         [value]="course?.title ?? ''"
-        (input)="course.title = getName($event)"
+        (input)="editedCourseFields.title = getName($event)"
       />
     </label>
     <label class="flex flex-column">
@@ -22,10 +22,22 @@
         pInputTextarea
         class="w-6"
         [value]="course?.description ?? ''"
-        (input)="course.description = getDescription($event)"
+        (input)="editedCourseFields.description = getDescription($event)"
       ></textarea>
     </label>
-    <app-duration-edit-input [courseFields]="course"></app-duration-edit-input>
+    <label class="flex flex-column">
+      Продолжительность*
+      <input
+        pInputText
+        type="number"
+        class="w-6"
+        [value]="course.duration ?? ''"
+        (input)="editedCourseFields.duration = getDuration($event)"
+      />
+      <div class="ml-2">
+        {{ (course.duration! | duration) ?? "" }}
+      </div>
+    </label>
     <label class="flex flex-column">
       Дата*
       <input
@@ -37,10 +49,13 @@
             ? (course.creationDate | date : 'yyyy-MM-dd')
             : ''
         "
-        (input)="course.creationDate = getDate($event)"
+        (input)="editedCourseFields.creationDate = getDate($event)"
       />
     </label>
-    <app-authors-edit-input [courseFields]="course"></app-authors-edit-input>
+    <label class="flex flex-column">
+      Авторы*
+      <input pInputText class="w-6" [value]="getInputAuthors()" />
+    </label>
     <div class="flex gap-2">
       <button
         pButton

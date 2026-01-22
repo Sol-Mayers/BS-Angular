@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { nanoid } from 'nanoid';
+import { take } from 'rxjs';
 import { Courses } from 'src/app/domain/courses.interface';
 import { CoursesService } from 'src/app/services/courses.service';
 
@@ -28,11 +29,6 @@ export class AddNewCourseComponent implements OnInit {
     description: '',
     duration: null,
     creationDate: null,
-    // authors: {
-    //   id: nanoid(5),
-    //   firstName: '',
-    //   lastName: '',
-    // },
     authors: [],
   };
   createIsAble = false;
@@ -53,7 +49,26 @@ export class AddNewCourseComponent implements OnInit {
     return (event.target as HTMLInputElement).value;
   }
 
+  getDuration(event: Event): number {
+    return Number((event.target as HTMLInputElement).value);
+  }
+
+  getAuthors(event: Event): void {
+    // Данный функционал будет доработан, когда будет доработан компонент авторов.
+    // const editedAuthors = (event.target as HTMLInputElement).value;
+    // const authors: Users[] = [];
+    // const newAuthor: Users = {} as Users;
+    // editedAuthors.split(',').forEach((item) => {
+    //   newAuthor.firstName = item;
+    //   newAuthor.lastName = item;
+    //   newAuthor.id = nanoid(5);
+    //   authors.push(newAuthor);
+    // });
+    // return authors;
+  }
+
   addNewCourse(): void {
-    this.coursesService.addItem(this.courseFields);
+    // this.coursesService.addItem(this.courseFields);
+    this.coursesService.addItem(this.courseFields).pipe(take(1)).subscribe();
   }
 }

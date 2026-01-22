@@ -17,7 +17,8 @@
     [courses]="(courses | async)! || []"
     (courseToEdit)="getCourseToEdit($event)"
     (resetAll)="resetFilters()"
-    (delete)="deleteCourse($event)"
+    (delete)="showDeleteConfirm($event)"
+    [isNotFound]="isNotFound"
   ></app-courses>
   <app-show-more-button
     class="mx-auto my-0 flex justify-content-center"
