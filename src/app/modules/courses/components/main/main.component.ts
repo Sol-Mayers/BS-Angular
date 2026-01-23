@@ -4,7 +4,6 @@ import { FilterPipe } from '../search/pipes/filter.pipe';
 import { CoursesService } from 'src/app/services/courses.service';
 import { SearchComponent } from '../search/search.component';
 import { Observable, take } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
@@ -31,7 +30,6 @@ export class MainComponent implements OnInit {
   }
 
   findCourse(text: string): void {
-    // this.courses = this.filter.transform(courses, 'title', text);
     this.courses = this.coursesService.getList(text);
     this.courses.subscribe((data) => {
       if (data.length === 0) {

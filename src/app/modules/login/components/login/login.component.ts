@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { loginFormFields } from 'src/app/domain/loginFormFields.interface';
+import {
+  loginFormFields,
+  loginFormInput,
+} from 'src/app/domain/loginFormFields.interface';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,12 +12,12 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   constructor(private readonly AuthService: AuthService) {}
-  loginFormFields: loginFormFields = {
-    emailText: '',
-    passwordText: '',
+  loginFormFields: loginFormInput = {
+    email: '',
+    password: '',
   };
-  @Output() getFields: EventEmitter<loginFormFields> =
-    new EventEmitter<loginFormFields>();
+  @Output() getFields: EventEmitter<loginFormInput> =
+    new EventEmitter<loginFormInput>();
 
   getEmail(event: Event): string {
     return (event.target as HTMLInputElement).value;

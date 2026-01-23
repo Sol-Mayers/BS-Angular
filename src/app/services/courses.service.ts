@@ -8,14 +8,14 @@ import { Params } from '@angular/router';
   providedIn: 'root',
 })
 export class CoursesService {
-  private readonly coursesUrl = '/api';
+  private readonly mainUrl = '/api';
 
   constructor(private readonly httpClient: HttpClient) {}
 
   public getList(params?: string): Observable<Courses[]> {
     if (params) {
       return this.httpClient
-        .get<Courses[]>(`${this.coursesUrl}/courses`)
+        .get<Courses[]>(`${this.mainUrl}/courses`)
         .pipe(
           map((courses) =>
             courses.filter(
@@ -26,7 +26,7 @@ export class CoursesService {
           )
         );
     } else {
-      return this.httpClient.get<Courses[]>(`${this.coursesUrl}/courses`);
+      return this.httpClient.get<Courses[]>(`${this.mainUrl}/courses`);
     }
   }
 
@@ -40,16 +40,16 @@ export class CoursesService {
 
   public updateItem(item: Courses): Observable<Courses[]> {
     return this.httpClient.put<Courses[]>(
-      `${this.coursesUrl}/courses/${item.id}`,
+      `${this.mainUrl}/courses/${item.id}`,
       item
     );
   }
 
   public removeItem(id: string): Observable<string> {
-    return this.httpClient.delete<string>(`${this.coursesUrl}/courses/${id}`);
+    return this.httpClient.delete<string>(`${this.mainUrl}/courses/${id}`);
   }
 
   public addItem(course: Courses): Observable<Courses> {
-    return this.httpClient.post<Courses>(`${this.coursesUrl}/courses`, course);
+    return this.httpClient.post<Courses>(`${this.mainUrl}/courses`, course);
   }
 }

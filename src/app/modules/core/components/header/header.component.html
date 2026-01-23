@@ -4,7 +4,7 @@
   >
     <app-logo></app-logo>
     <div
-      *ngIf="userIsLoggedin"
+      *ngIf="isUser !== 0"
       id="{{ user.id }}"
       class="ml-2 gap-3 flex flex-row justify-content-between align-items-center"
     >
