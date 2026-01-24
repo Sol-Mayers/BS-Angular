@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import {
-  loginFormFields,
-  loginFormInput,
-} from 'src/app/domain/loginFormFields.interface';
+import { loginFormInput } from 'src/app/domain/loginFormFields.interface';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -29,7 +26,6 @@ export class LoginComponent {
 
   getloginFormFields(event: Event): void {
     event.preventDefault();
-    // this.getFields.emit(this.loginFormFields);
     this.AuthService.login(this.loginFormFields);
   }
 }

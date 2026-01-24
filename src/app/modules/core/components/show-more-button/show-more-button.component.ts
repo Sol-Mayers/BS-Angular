@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-show-more-button',
@@ -6,7 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./show-more-button.component.css'],
 })
 export class ShowMoreButtonComponent {
+  @Output() showMore: EventEmitter<number> = new EventEmitter<number>();
+  private readonly countOfShowItems = 10;
+
   loadMore(): void {
-    console.log('load more');
+    this.showMore.emit(this.countOfShowItems);
   }
 }

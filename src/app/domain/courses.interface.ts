@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Users } from './users.interface';
 
 export interface Courses {
@@ -9,4 +10,10 @@ export interface Courses {
   topRated?: boolean;
   authors?: Users[];
   //временно поставлена опциональность
+}
+export interface CoursesQueryParams {
+  filter?: string;
+  params?: {
+    _limit: string;
+  };
 }

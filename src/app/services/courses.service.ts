@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Courses } from '../domain/courses.interface';
+import { Courses, CoursesQueryParams } from '../domain/courses.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Params } from '@angular/router';
@@ -12,19 +12,25 @@ export class CoursesService {
 
   constructor(private readonly httpClient: HttpClient) {}
 
-  public getList(params?: string): Observable<Courses[]> {
-    if (params) {
+  public getList(props?: CoursesQueryParams): Observable<Courses[]> {
+    const { filter, params } = props ?? {};
+
+    if (filter) {
       return this.httpClient
         .get<Courses[]>(`${this.mainUrl}/courses`)
         .pipe(
           map((courses) =>
             courses.filter(
               (course) =>
-                course.title.toLowerCase().includes(params.toLowerCase()) ||
-                course.description.toLowerCase().includes(params.toLowerCase())
+                course.title.toLowerCase().includes(filter.toLowerCase()) ||
+                course.description.toLowerCase().includes(filter.toLowerCase())
             )
           )
         );
+    } else if (params) {
+      return this.httpClient.get<Courses[]>(`${this.mainUrl}/courses`, {
+        params: params,
+      });
     } else {
       return this.httpClient.get<Courses[]>(`${this.mainUrl}/courses`);
     }

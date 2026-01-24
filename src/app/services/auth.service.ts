@@ -4,17 +4,9 @@ import {
   loginFormInput,
 } from '../domain/loginFormFields.interface';
 import { EncryptionService } from './encryption.service';
-import {
-  BehaviorSubject,
-  distinctUntilChanged,
-  map,
-  Observable,
-  Subject,
-} from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { nanoid } from 'nanoid';
-import { Courses } from '../domain/courses.interface';
-import { Users } from '../domain/users.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -33,32 +25,17 @@ export class AuthService {
     return this.Encription.generateToken();
   };
 
-  currentUser: loginFormFields = JSON.parse(localStorage.getItem('userInfo')!);
-
-  private readonly _isAuthSubject = new BehaviorSubject<boolean>(
-    this.checkInitialAuth()
-  );
+  currentUser: string | null = localStorage.getItem('coursesUserToken')!;
 
   // начальное значение можно задать любое
-  private _userFields$ = new BehaviorSubject<loginFormFields>(
-    JSON.parse(localStorage.getItem('userInfo')!) as loginFormFields
+  private _userFields$ = new BehaviorSubject<string>(
+    localStorage.getItem('coursesUserToken')!
   );
 
   // публичный поток для подписки
-  public readonly value$: Observable<loginFormFields> = this._userFields$
+  public readonly value$: Observable<string> = this._userFields$
     .asObservable()
     .pipe(distinctUntilChanged());
-
-  public readonly isAuth$: Observable<boolean> =
-    this._isAuthSubject.asObservable();
-
-  public get isAuth(): boolean {
-    return this._isAuthSubject.value;
-  }
-
-  private checkInitialAuth(): boolean {
-    return localStorage.getItem('userInfo') !== null;
-  }
 
   // Вход и сохранение данных о пользователе в базу данных.
   // Временно работает и как регистрация и как вход.
@@ -91,24 +68,21 @@ export class AuthService {
       fakeToken: token,
     };
 
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    localStorage.setItem('coursesUserToken', token);
     this.httpClient
       .post<loginFormFields>(`${this.mainUrl}/users`, userInfo)
       .subscribe({
         next: (data) => console.log(data),
       });
-    console.log('Выполнен вход в систему');
 
     // Обновляем состояние авторизации
-    this.currentUser = userInfo;
-    this._isAuthSubject.next(true);
-    this._userFields$.next(userInfo);
+    this.currentUser = token;
+    this._userFields$.next(token);
   }
 
-  public logout(): void {
-    console.log('currentUser: ' + this.currentUser);
+  public logout(id: string): void {
     this.httpClient
-      .delete<loginFormFields>(`${this.mainUrl}/users/${this.currentUser.id}`)
+      .delete<loginFormFields>(`${this.mainUrl}/users/${id}`)
       .subscribe({
         next: (user) => {
           console.log(user);
@@ -117,28 +91,22 @@ export class AuthService {
         error: (err) => console.log(`Ошибка при выходе, ${err}`),
       });
 
-    localStorage.removeItem('userInfo');
+    localStorage.removeItem('coursesUserToken');
 
     // Обновляем состояние авторизации
-    this._isAuthSubject.next(false);
-    this._userFields$.next({} as loginFormFields);
+    this.currentUser = null;
+    this._userFields$.next('');
   }
 
-  public isAuthenticated(): boolean {
-    return this._isAuthSubject.value;
+  public getUserInfo(): Observable<loginFormFields> {
+    return this.httpClient.get<loginFormFields[]>(`${this.mainUrl}/users`).pipe(
+      map((users) => {
+        return users.filter((user) => user.fakeToken == this.currentUser)[0];
+      })
+    );
   }
 
-  public getUserInfo(): Observable<loginFormFields[]> {
-    return this.httpClient
-      .get<loginFormFields[]>(`${this.mainUrl}/users`)
-      .pipe(
-        map((users) =>
-          users.filter((user) => user.fakeToken == this.currentUser.fakeToken)
-        )
-      );
-  }
-
-  getValue(): loginFormFields {
+  getValue(): string {
     return this._userFields$.getValue();
   }
 }

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -19,36 +20,22 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private readonly AuthService: AuthService) {}
-  user: loginFormFields = {} as loginFormFields;
-  isUser = Object.values(this.user).length;
-  userIsLoggedin = this.AuthService.isAuthenticated();
-  private authSub: Subscription | undefined;
+  currentUser: Observable<loginFormFields> | null = null;
+
   private _destroy$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.authSub = this.AuthService.isAuth$.subscribe(() => {
-      this.userIsLoggedin = this.AuthService.isAuthenticated();
-    });
-
     this.AuthService.value$.pipe(takeUntil(this._destroy$)).subscribe(() => {
-      this.user = this.AuthService.getValue();
-      if (this.user) {
-        this.isUser = Object.values(this.user).length;
-      }
+      this.currentUser = this.AuthService.getUserInfo();
     });
   }
 
   ngOnDestroy(): void {
-    this.authSub?.unsubscribe();
     this._destroy$.next();
     this._destroy$.complete();
   }
 
-  @Output() userLogout: EventEmitter<loginFormFields> =
-    new EventEmitter<loginFormFields>();
-
-  logout(): void {
-    this.AuthService.logout();
-    this.userIsLoggedin = this.AuthService.isAuthenticated();
+  logout(id: string): void {
+    this.AuthService.logout(id);
   }
 }
