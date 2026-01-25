@@ -10,8 +10,12 @@ import { Courses } from 'src/app/domain/courses.interface';
 export class AuthorsInputComponent {
   @Input() courseFields: Courses = {} as Courses;
 
+  authors: string =
+    this.courseFields.authors
+      ?.map((author) => [author.firstName ?? '', author.lastName ?? ''])
+      .join() ?? '';
+
   getAuthors(event: Event): string {
-    this.courseFields.authors!.lastName = 'Фамилия';
     return (event.target as HTMLInputElement).value;
   }
 }

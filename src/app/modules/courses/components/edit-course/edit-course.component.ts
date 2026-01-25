@@ -2,12 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   OnInit,
   Output,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { nanoid } from 'nanoid';
+import { map, Observable, take, tap } from 'rxjs';
 import { Courses } from 'src/app/domain/courses.interface';
 import { BreadcrumbsService } from 'src/app/services/breadcrumbs.service';
 import { CoursesService } from 'src/app/services/courses.service';
@@ -25,35 +24,62 @@ export class EditCourseComponent implements OnInit {
     private readonly breadcrumbService: BreadcrumbsService
   ) {}
 
-  @Input() courses: Courses[] = [];
-  @Input() courseToEdit: Courses = {} as Courses;
+  courses: Observable<Courses[]> = this.coursesService.getList();
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   currentId: string | null = null;
-  // route = 'Редактировать курс';
-  courseFields: Courses = {
+  // Поля текущего курса
+  courseFields!: Observable<Courses | null>;
+  // Поля обновлённого курса
+  editedCourseFields: Courses = {
     id: '',
     title: '',
     description: '',
     duration: null,
     creationDate: null,
-    authors: {
-      id: '',
-      firstName: '',
-      lastName: '',
-    },
+    authors: [],
   };
   createIsAble = false;
+  authors = '';
+
+  getCourseFields(): Observable<Courses | null> {
+    return this.courses.pipe(
+      map((list) => list?.find((c) => c.id == this.currentId) ?? null)
+    );
+  }
 
   ngOnInit(): void {
-    this.courses = this.coursesService.getList();
     const idParam = this.currentRoute.snapshot.paramMap.get('id');
-    this.currentId = idParam ? idParam : null;
-    this.courseFields = this.courses.find((item) => item.id == this.currentId)!;
+    this.currentId = idParam ?? null;
 
-    this.breadcrumbService.emit(this.courseFields.title);
-    // const currentBreadcrumbs = this.breadcrumbService.getCurrentBreadcrumbs();
-    // this.breadcrumbs = [...currentBreadcrumbs];
+    this.courseFields = this.courses.pipe(
+      map(
+        (list) =>
+          list?.find((c) => {
+            return c.id == this.currentId;
+          }) ?? null
+      ),
+      tap((course) => {
+        if (course) {
+          this.breadcrumbService.emit(course.title);
+        }
+      })
+    );
+
+    this.courseFields.pipe(take(1)).subscribe((course) => {
+      if (course) {
+        this.editedCourseFields = { ...course };
+      } else {
+        this.editedCourseFields = {
+          id: '',
+          title: '',
+          description: '',
+          duration: null,
+          creationDate: null,
+          authors: [],
+        };
+      }
+    });
   }
 
   getName(event: Event): string {
@@ -68,8 +94,35 @@ export class EditCourseComponent implements OnInit {
     return (event.target as HTMLInputElement).value;
   }
 
+  getDuration(event: Event): number {
+    return Number((event.target as HTMLInputElement).value);
+  }
+
+  getAuthors(event: Event): string[] {
+    // Данный функционал будет доработан, когда будет доработан компонент авторов
+    const editedAuthors = (event.target as HTMLInputElement).value;
+
+    return editedAuthors.split(',');
+  }
+
+  getInputAuthors(): string {
+    return (
+      this.editedCourseFields.authors
+        ?.map(
+          (author) =>
+            (author.firstName ? author.firstName : '') +
+            ' ' +
+            (author.lastName ? author.lastName : '')
+        )
+        .join(', ') ?? ''
+    );
+  }
+
   editCourse(): void {
-    this.coursesService.updateItem(this.courseFields);
+    this.coursesService
+      .updateItem(this.editedCourseFields)
+      .pipe(take(1))
+      .subscribe();
   }
 
   cancelCreateNewCourse(event: Event): void {

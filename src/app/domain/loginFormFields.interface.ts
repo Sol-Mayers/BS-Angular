@@ -1,4 +1,13 @@
 export interface loginFormFields {
-  emailText: string;
-  passwordText: string;
+  email: string;
+  password: string;
+  id: string;
+  fakeToken: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface loginFormInput {
+  email: string;
+  password: string;
 }

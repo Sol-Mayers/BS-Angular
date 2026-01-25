@@ -9,7 +9,7 @@ import { Courses } from 'src/app/domain/courses.interface';
 })
 export class DurationInputEditComponent {
   @Input() courseFields: Courses = {} as Courses;
-  @Input() courseEditingFields: Courses = {} as Courses;
+  @Input() editedCourseFields: Courses = {} as Courses;
 
   getDuration(event: Event): number {
     return Number((event.target as HTMLInputElement).value);

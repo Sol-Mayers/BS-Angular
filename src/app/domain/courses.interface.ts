@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Users } from './users.interface';
 
 export interface Courses {
@@ -7,6 +8,14 @@ export interface Courses {
   duration: number | null;
   description: string;
   topRated?: boolean;
-  authors?: Users;
+  authors?: Users[];
   //временно поставлена опциональность
+}
+export interface CoursesQueryParams {
+  filter?: string;
+  params?: {
+    _limit: string;
+    _sort?: keyof Courses;
+    _order?: 'asc' | 'desc';
+  };
 }

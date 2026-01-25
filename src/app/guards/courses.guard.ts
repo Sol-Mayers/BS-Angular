@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { loginFormFields } from '../domain/loginFormFields.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +27,9 @@ export class CoursesGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const userIsLoggedin = this.AuthService.isAuthenticated();
+    const currentUser: string | null = this.AuthService.getValue();
 
-    if (userIsLoggedin) {
+    if (currentUser) {
       return true;
     } else {
       return this.router.createUrlTree(['login'], {

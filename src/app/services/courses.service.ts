@@ -1,17 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Courses } from '../domain/courses.interface';
-import { courses } from '../mock/courses';
+import { Courses, CoursesQueryParams } from '../domain/courses.interface';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
+import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  private courses: Courses[] = [...courses];
+  private readonly mainUrl = '/api';
 
-  constructor() {}
+  constructor(private readonly httpClient: HttpClient) {}
 
-  public getList(): Courses[] {
-    return this.courses;
+  public getList(props?: CoursesQueryParams): Observable<Courses[]> {
+    const { filter, params } = props ?? {};
+
+    if (filter) {
+      return this.httpClient
+        .get<Courses[]>(`${this.mainUrl}/courses`, {
+          params: params,
+        })
+        .pipe(
+          map((courses) =>
+            courses.filter(
+              (course) =>
+                course.title.toLowerCase().includes(filter.toLowerCase()) ||
+                course.description.toLowerCase().includes(filter.toLowerCase())
+            )
+          )
+        );
+    } else if (params) {
+      return this.httpClient.get<Courses[]>(`${this.mainUrl}/courses`, {
+        params: params,
+      });
+    } else {
+      return this.httpClient.get<Courses[]>(`${this.mainUrl}/courses`);
+    }
   }
 
   public createCourse(): void {
@@ -22,21 +46,18 @@ export class CoursesService {
     console.log('item id');
   }
 
-  public updateItem(item: Courses): void {
-    this.courses = this.courses.map((courseItem) => {
-      if (courseItem.id == item.id) {
-        return item;
-      } else {
-        return courseItem;
-      }
-    });
+  public updateItem(item: Courses): Observable<Courses[]> {
+    return this.httpClient.put<Courses[]>(
+      `${this.mainUrl}/courses/${item.id}`,
+      item
+    );
   }
 
-  public removeItem(id: string): void {
-    this.courses = this.courses.filter((item) => item.id !== id);
+  public removeItem(id: string): Observable<string> {
+    return this.httpClient.delete<string>(`${this.mainUrl}/courses/${id}`);
   }
 
-  public addItem(course: Courses): void {
-    this.courses.unshift(course);
+  public addItem(course: Courses): Observable<Courses> {
+    return this.httpClient.post<Courses>(`${this.mainUrl}/courses`, course);
   }
 }

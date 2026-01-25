@@ -14,8 +14,8 @@
         aria-describedby="email-help"
         placeholder="Например user@domain.com"
         class="p-2 p-inputtext mb-4"
-        [value]="loginFormFields.emailText"
-        (input)="loginFormFields.emailText = getEmail($event)"
+        [value]="loginFormFields.email"
+        (input)="loginFormFields.email = getEmail($event)"
         required
       />
       <label for="password" class="mb-2">Пароль*</label>
@@ -25,8 +25,8 @@
         aria-describedby="password-help"
         placeholder="Ваш пароль"
         class="p-2 p-inputtext"
-        [value]="loginFormFields.passwordText"
-        (input)="loginFormFields.passwordText = getPassword($event)"
+        [value]="loginFormFields.password"
+        (input)="loginFormFields.password = getPassword($event)"
         required
       />
     </div>

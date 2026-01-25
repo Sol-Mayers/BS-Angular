@@ -6,12 +6,14 @@ import localeRu from '@angular/common/locales/ru';
 import { CoreModule } from './modules/core/core.module';
 import { CoursesModule } from './modules/courses/courses.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/login/login.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 registerLocaleData(localeRu);
 
@@ -28,8 +30,12 @@ registerLocaleData(localeRu);
     InputTextareaModule,
     CalendarModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'ru-RU' },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

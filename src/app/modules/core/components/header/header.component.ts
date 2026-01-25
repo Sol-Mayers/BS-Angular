@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -6,8 +7,9 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, of, Subject, Subscription, takeUntil } from 'rxjs';
 import { loginFormFields } from 'src/app/domain/loginFormFields.interface';
+import { Users } from 'src/app/domain/users.interface';
 import { user } from 'src/app/mock/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -18,25 +20,22 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private readonly AuthService: AuthService) {}
-  user = user;
-  userIsLoggedin = this.AuthService.isAuthenticated();
-  private authSub: Subscription | undefined;
+  currentUser: Observable<loginFormFields> | null = null;
+
+  private _destroy$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.authSub = this.AuthService.isAuth$.subscribe(() => {
-      this.userIsLoggedin = this.AuthService.isAuthenticated();
+    this.AuthService.value$.pipe(takeUntil(this._destroy$)).subscribe(() => {
+      this.currentUser = this.AuthService.getUserInfo();
     });
   }
 
   ngOnDestroy(): void {
-    this.authSub?.unsubscribe();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
-  @Output() userLogout: EventEmitter<loginFormFields> =
-    new EventEmitter<loginFormFields>();
-
-  logout(): void {
-    this.AuthService.logout();
-    this.userIsLoggedin = this.AuthService.isAuthenticated();
+  logout(id: string): void {
+    this.AuthService.logout(id);
   }
 }

@@ -14,11 +14,15 @@
   </div>
   <app-courses
     class="flex flex-column justify-content-start gap-4 mt-4"
-    [courses]="courses"
+    [courses]="(courses$ | async)! || []"
     (courseToEdit)="getCourseToEdit($event)"
     (resetAll)="resetFilters()"
+    (delete)="showDeleteConfirm($event)"
+    [isNotFound]="isNotFound"
   ></app-courses>
   <app-show-more-button
+    *ngIf="showMoreButton"
     class="mx-auto my-0 flex justify-content-center"
+    (showMore)="loadMore($event)"
   ></app-show-more-button>
 </ng-container>

@@ -1,8 +1,6 @@
 <div class="flex flex-column min-h-screen">
-  <app-header (userLogout)="logout()" class="z-1"></app-header>
-  <!-- <app-main *ngIf="userIsLoggedin" class="custom_main surface-200"></app-main> -->
-  <!-- <div *ngIf="userIsLoggedin" class="custom_main surface-200"> -->
-  <div class="custom_main surface-200 align-content-center">
+  <app-header class="z-1"></app-header>
+  <div class="custom_main surface-200 align-content-start">
     <router-outlet></router-outlet>
   </div>
   <app-footer class="z-1"></app-footer>

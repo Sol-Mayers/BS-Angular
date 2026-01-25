@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Observable, take } from 'rxjs';
 import { Courses } from 'src/app/domain/courses.interface';
 import { CoursesService } from 'src/app/services/courses.service';
 
@@ -9,21 +10,12 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./courses.component.css'],
 })
 export class CoursesComponent {
-  constructor(
-    private readonly coursesService: CoursesService,
-    private readonly confirmationService: ConfirmationService,
-    private readonly messageService: MessageService
-  ) {}
-
   @Input() courses: Courses[] = [];
+  @Input() isNotFound = false;
   @Output() edit: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() delete: EventEmitter<string> = new EventEmitter<string>();
   @Output() courseToEdit: EventEmitter<Courses> = new EventEmitter<Courses>();
   @Output() resetAll: EventEmitter<void> = new EventEmitter<void>();
-
-  deleteCourse(id: string): void {
-    this.coursesService.removeItem(id);
-    this.courses = this.coursesService.getList();
-  }
 
   getCourseToEdit(courses: Courses): void {
     this.courseToEdit.emit(courses);
@@ -34,22 +26,8 @@ export class CoursesComponent {
     this.getCourseToEdit(courses);
   }
 
-  showConfirm(id: string) {
-    this.confirmationService.confirm({
-      message: 'Вы действительно хотите удалить этот курс?',
-      header: 'Подтвердите удаление',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.deleteCourse(id);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Подтверждено',
-          detail: 'Курс удалён',
-        });
-      },
-      acceptLabel: 'Да',
-      rejectLabel: 'Нет',
-    });
+  showDeleteConfirm(id: string) {
+    this.delete.emit(id);
   }
 
   resetFilters() {

@@ -4,7 +4,7 @@
   >
     <app-logo></app-logo>
     <div
-      *ngIf="userIsLoggedin"
+      *ngIf="currentUser | async as user"
       id="{{ user.id }}"
       class="ml-2 gap-3 flex flex-row justify-content-between align-items-center"
     >
@@ -20,7 +20,7 @@
         routerLink="/login"
         routerLinkActive="active"
         class="text-900 no-underline flex flex-row justify-content-center align-items-center p-button-link font-medium"
-        (click)="logout()"
+        (click)="logout(user.id)"
       >
         <i class="pi pi-sign-out mr-2"></i>
         <span>Выход</span>
