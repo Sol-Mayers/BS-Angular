@@ -17,7 +17,9 @@ export class CoursesService {
 
     if (filter) {
       return this.httpClient
-        .get<Courses[]>(`${this.mainUrl}/courses`)
+        .get<Courses[]>(`${this.mainUrl}/courses`, {
+          params: params,
+        })
         .pipe(
           map((courses) =>
             courses.filter(

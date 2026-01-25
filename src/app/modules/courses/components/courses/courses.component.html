@@ -3,7 +3,7 @@
 <div class="flex flex-column align-items-flex-start gap-4">
   <app-not-found *ngIf="isNotFound" (resetAll)="resetFilters()"></app-not-found>
   <app-course-item
-    *ngFor="let course of courses ?? [] | orderBy : 'creationDate'"
+    *ngFor="let course of courses ?? []"
     [course]="course"
     (edit)="editCourse($event)"
     (confirm)="showDeleteConfirm($event)"

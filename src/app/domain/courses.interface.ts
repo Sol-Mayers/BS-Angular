@@ -15,5 +15,7 @@ export interface CoursesQueryParams {
   filter?: string;
   params?: {
     _limit: string;
+    _sort?: keyof Courses;
+    _order?: 'asc' | 'desc';
   };
 }
