@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { AuthService } from './services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { LoaderService } from './services/loader.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,9 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private readonly AuthService: AuthService) {}
-  title = 'my-app';
+  constructor(private readonly loaderService: LoaderService) {
+    this.showLoader$ = this.loaderService.showLoader;
+  }
+
+  showLoader$: Observable<boolean>;
 }

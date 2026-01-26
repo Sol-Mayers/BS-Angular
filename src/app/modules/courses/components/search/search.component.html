@@ -9,16 +9,10 @@
           name="search"
           placeholder="Поиск"
           class="border-round-sm pl-6 py-3 pr-3 border-1 border-300 outline-none"
-          [value]="inputText"
-          (input)="inputText = getCourse($event)"
+          [value]="text | async"
+          (keyup)="getCourse($event)"
         />
       </div>
-      <button
-        pButton
-        label="Поиск"
-        class="p-button-help ml-3"
-        (click)="findCourse()"
-      ></button>
     </div>
   </div>
 </div>

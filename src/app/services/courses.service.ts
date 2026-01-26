@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Courses, CoursesQueryParams } from '../domain/courses.interface';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { Params } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { catchError, finalize, map, Observable, throwError } from 'rxjs';
+import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +10,13 @@ import { Params } from '@angular/router';
 export class CoursesService {
   private readonly mainUrl = '/api';
 
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly loaderService: LoaderService
+  ) {}
 
   public getList(props?: CoursesQueryParams): Observable<Courses[]> {
+    setTimeout(() => this.loaderService.loaderIsOn(), 0);
     const { filter, params } = props ?? {};
 
     if (filter) {
@@ -27,23 +31,44 @@ export class CoursesService {
                 course.title.toLowerCase().includes(filter.toLowerCase()) ||
                 course.description.toLowerCase().includes(filter.toLowerCase())
             )
-          )
+          ),
+          catchError((err) => {
+            console.error(err);
+            return throwError(
+              () => new Error(`Ошибка загрузки курсов: ${err}`)
+            );
+          }),
+          finalize(() => {
+            this.loaderService.loaderIsOff();
+          })
         );
     } else if (params) {
-      return this.httpClient.get<Courses[]>(`${this.mainUrl}/courses`, {
-        params: params,
-      });
+      return this.httpClient
+        .get<Courses[]>(`${this.mainUrl}/courses`, {
+          params: params,
+        })
+        .pipe(
+          catchError((err) => {
+            console.error(err);
+            return throwError(
+              () => new Error(`Ошибка загрузки курсов: ${err}`)
+            );
+          }),
+          finalize(() => {
+            this.loaderService.loaderIsOff();
+          })
+        );
     } else {
-      return this.httpClient.get<Courses[]>(`${this.mainUrl}/courses`);
+      return this.httpClient.get<Courses[]>(`${this.mainUrl}/courses`).pipe(
+        catchError((err) => {
+          console.error(err);
+          return throwError(() => new Error(`Ошибка загрузки курсов: ${err}`));
+        }),
+        finalize(() => {
+          this.loaderService.loaderIsOff();
+        })
+      );
     }
-  }
-
-  public createCourse(): void {
-    console.log('course created');
-  }
-
-  public getItemById(): void {
-    console.log('item id');
   }
 
   public updateItem(item: Courses): Observable<Courses[]> {
