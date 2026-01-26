@@ -1,16 +1,6 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { Observable, of, Subject, Subscription, takeUntil } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { loginFormFields } from 'src/app/domain/loginFormFields.interface';
-import { Users } from 'src/app/domain/users.interface';
-import { user } from 'src/app/mock/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({

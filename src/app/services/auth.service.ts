@@ -106,7 +106,7 @@ export class AuthService {
     );
   }
 
-  getValue(): string {
-    return this._userFields$.getValue();
+  getValue(): Observable<string> {
+    return this.value$;
   }
 }

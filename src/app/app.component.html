@@ -1,6 +1,7 @@
-<div class="flex flex-column min-h-screen">
+<div class="flex flex-column min-h-screen relative">
+  <app-loader *ngIf="showLoader$ | async"></app-loader>
   <app-header class="z-1"></app-header>
-  <div class="custom_main surface-200 align-content-start">
+  <div class="custom_main surface-200 align-content-start relative">
     <router-outlet></router-outlet>
   </div>
   <app-footer class="z-1"></app-footer>

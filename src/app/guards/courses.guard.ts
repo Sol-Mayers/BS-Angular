@@ -6,9 +6,8 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { loginFormFields } from '../domain/loginFormFields.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -22,19 +21,15 @@ export class CoursesGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    const currentUser: string | null = this.AuthService.getValue();
+  ): Observable<boolean | UrlTree> {
+    const returnUrl = state.url;
 
-    if (currentUser) {
-      return true;
-    } else {
-      return this.router.createUrlTree(['login'], {
-        queryParams: { returnUrl: state.url },
-      });
-    }
+    return this.AuthService.getValue().pipe(
+      map((isAuth) =>
+        isAuth
+          ? true
+          : this.router.createUrlTree(['login'], { queryParams: { returnUrl } })
+      )
+    );
   }
 }

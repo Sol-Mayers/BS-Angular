@@ -1,9 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Courses, CoursesQueryParams } from 'src/app/domain/courses.interface';
 import { FilterPipe } from '../search/pipes/filter.pipe';
 import { CoursesService } from 'src/app/services/courses.service';
 import { SearchComponent } from '../search/search.component';
-import { BehaviorSubject, finalize, Observable, of, take } from 'rxjs';
+import {
+  BehaviorSubject,
+  finalize,
+  Observable,
+  Subject,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { OrderByPipe } from './pipes/order-by.pipe';
 
@@ -12,7 +20,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
   constructor(
     private readonly coursesService: CoursesService,
     private readonly confirmationService: ConfirmationService,
@@ -21,7 +29,6 @@ export class MainComponent implements OnInit {
 
   @ViewChild('searchComponent') child!: SearchComponent;
 
-  courses: Observable<Courses[]> | null = null;
   courseToEdit: Courses = {} as Courses;
   filter = new FilterPipe();
   orderBy = new OrderByPipe();
@@ -34,6 +41,7 @@ export class MainComponent implements OnInit {
     },
   };
   showMoreButton = true;
+  private destroy$ = new Subject<void>();
 
   private cachedCourses: Courses[] = [];
 
@@ -47,6 +55,13 @@ export class MainComponent implements OnInit {
         this.cachedCourses = [...data];
         this.coursesSubject.next(this.cachedCourses);
       });
+    this.courses$?.subscribe((courses) => {
+      if (courses.length < 10) {
+        this.showMoreButton = false;
+      } else {
+        this.showMoreButton = true;
+      }
+    });
   }
 
   loadMore(itemsCount: number) {
@@ -88,7 +103,10 @@ export class MainComponent implements OnInit {
   }
 
   findCourse(text: string): void {
-    const props: CoursesQueryParams = { filter: text };
+    const props: CoursesQueryParams = {
+      ...this.mainCoursesQueryprops,
+      filter: text,
+    };
     this.coursesService.getList(props).subscribe((data) => {
       this.isNotFound = data.length === 0;
       this.cachedCourses = data;
@@ -113,7 +131,7 @@ export class MainComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.coursesService.removeItem(id).pipe(take(1)).subscribe();
-        this.courses = this.coursesService.getList(this.mainCoursesQueryprops);
+        this.coursesSubject.next(this.cachedCourses);
         this.messageService.add({
           severity: 'success',
           summary: 'Подтверждено',
@@ -123,5 +141,10 @@ export class MainComponent implements OnInit {
       acceptLabel: 'Да',
       rejectLabel: 'Нет',
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

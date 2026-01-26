@@ -10,6 +10,8 @@ import { ButtonModule } from 'primeng/button';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { RouterModule } from '@angular/router';
+import { LoaderComponent } from './components/loader/loader.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,9 @@ import { RouterModule } from '@angular/router';
     NotFoundComponent,
     ShowMoreButtonComponent,
     NotFoundPageComponent,
+    LoaderComponent,
   ],
-  imports: [CommonModule, ButtonModule, RouterModule],
+  imports: [CommonModule, ButtonModule, RouterModule, ProgressSpinnerModule],
   exports: [
     BreadcrumbsComponent,
     FooterComponent,
@@ -29,6 +32,7 @@ import { RouterModule } from '@angular/router';
     LogoComponent,
     NotFoundComponent,
     ShowMoreButtonComponent,
+    LoaderComponent,
   ],
 })
 export class CoreModule {}
