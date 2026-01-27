@@ -1,21 +1,6 @@
 {
   "courses": [
     {
-      "id": "8693",
-      "title": "duis mollit reprehenderit ad",
-      "description": "Est minim ea aute sunt laborum minim eu excepteur. Culpa sint exercitation mollit enim ad culpa aliquip laborum cillum. Dolor officia culpa labore ex eiusmod ut est ea voluptate ea nostrud.",
-      "topRated": false,
-      "creationDate": "2020-09-28T04:39:24+00:00",
-      "authors": [
-        {
-          "id": 1370,
-          "firstName": "Polly",
-          "lastName": "Sosa"
-        }
-      ],
-      "duration": 157
-    },
-    {
       "id": "4980",
       "title": "magna excepteur aute deserunt",
       "creationDate": "2019-05-31T02:02:36.000Z",
@@ -352,41 +337,6 @@
       "duration": 283
     },
     {
-      "id": "8476",
-      "title": "ea est ex veniam",
-      "description": "Nostrud incididunt veniam consectetur cillum. Pariatur culpa dolor esse elit aliqua duis. Adipisicing exercitation nostrud ullamco occaecat ut et.",
-      "topRated": true,
-      "creationDate": "2020-09-08T19:51:30+00:00",
-      "authors": [
-        {
-          "id": 441,
-          "firstName": "Vance",
-          "lastName": "Reynolds"
-        }
-      ],
-      "duration": 346
-    },
-    {
-      "id": "6240",
-      "title": "sint voluptate Lorem laboris",
-      "description": "Tempor aute enim qui irure. Culpa elit ut nulla qui dolore eiusmod eiusmod incididunt commodo ipsum. Anim quis exercitation sint officia laborum officia.",
-      "topRated": false,
-      "creationDate": "2020-08-15T15:27:05+00:00",
-      "authors": [
-        {
-          "id": 9101,
-          "firstName": "Singleton",
-          "lastName": "Ellison"
-        },
-        {
-          "id": 638,
-          "firstName": "Weeks",
-          "lastName": "Santos"
-        }
-      ],
-      "duration": 267
-    },
-    {
       "id": "7349",
       "title": "ullamco irure et magna",
       "description": "Amet nostrud fugiat consequat mollit adipisicing pariatur incididunt. Eiusmod magna sit ea sunt officia anim consequat incididunt non minim non. Aute tempor proident veniam duis ex consequat dolor Lorem aliquip nulla veniam consectetur.",
@@ -447,36 +397,6 @@
       "duration": 390
     },
     {
-      "id": "5848",
-      "title": "енгнгннш",
-      "description": "Deserunt nulla nisi tempor ea tempor officia qui occaecat consectetur aliqua esse occaecat. Cillum anim veniam pariatur sint. Lorem Lorem aute anim culpa duis commodo officia labore laborum eiusmod qui irure amet pariatur.",
-      "topRated": true,
-      "creationDate": "2020-10-07T09:23:08+00:00",
-      "authors": [
-        {
-          "id": 2700,
-          "firstName": "Wynn",
-          "lastName": "Knowles"
-        },
-        {
-          "id": 1048,
-          "firstName": "Casey",
-          "lastName": "Terry"
-        },
-        {
-          "id": 5187,
-          "firstName": "Etta",
-          "lastName": "Key"
-        },
-        {
-          "id": 1939,
-          "firstName": "Hilary",
-          "lastName": "Mcdowell"
-        }
-      ],
-      "duration": 46
-    },
-    {
       "id": "348",
       "title": "nulla deserunt ut ipsum",
       "description": "Irure aliqua culpa ea Lorem ea laboris enim exercitation excepteur ex nulla minim ut. Est cupidatat quis officia occaecat enim reprehenderit mollit nisi. Elit proident consectetur laboris sit anim minim occaecat pariatur aute culpa duis deserunt culpa eiusmod.",
@@ -525,37 +445,29 @@
       "authors": ""
     },
     {
-      "id": "9819",
-      "title": "test",
-      "creationDate": "2020-06-30T21:00:00.000Z",
-      "duration": 85,
-      "description": "veryveryveryvery loooooooooooooooooooooooooooooong text",
+      "id": "slSZE",
+      "title": "tyueetru",
+      "description": "fsghfgdh",
+      "duration": 3,
+      "creationDate": "2026-01-27",
+      "authors": []
+    },
+    {
+      "id": "",
+      "title": "Новенький курс",
+      "description": "bdfbfdb",
+      "duration": 1,
+      "creationDate": "2026-01-28",
       "authors": [
         {
-          "id": "5b7a84624010db4d640e0099",
-          "firstName": "Vincent Doyle"
+          "id": "5b7a846290d6ff6894377fb5",
+          "name": "Decker Albert"
         },
         {
-          "id": "5b7a84628298a95c17462193",
-          "firstName": "Carey Jarvis"
+          "id": "5b7a8462f3034f386fae2be4",
+          "name": "Atkins Newman"
         }
       ]
-    },
-    {
-      "id": "xwjox",
-      "title": "fsdfd",
-      "description": "gasgfd",
-      "duration": 2,
-      "creationDate": null,
-      "authors": []
-    },
-    {
-      "id": "9SPcP",
-      "title": "reg",
-      "description": "dgdfh",
-      "duration": 2,
-      "creationDate": "2026-01-28",
-      "authors": []
     }
   ],
   "users": [
@@ -672,12 +584,12 @@
       "fakeToken": "Uy1qX4X6vvXpEvLFTFo0yFt24FN2GAtc0biOCovilTPgTxpTdv"
     },
     {
-      "id": "c8AD4",
-      "firstName": "rgdsf",
-      "lastName": "rgdsf",
-      "email": "rgdsf",
-      "password": "iWYi1tlmRiiKx0GU4I09Sw==",
-      "fakeToken": "8Ic2rR6ssAuk4P6IuYr3huUHGHbYUosiTW1UjFsweHAo9qki8y"
+      "id": "Y0CS8",
+      "firstName": "fdgs@mail.rii",
+      "lastName": "fdgs@mail.rii",
+      "email": "fdgs@mail.rii",
+      "password": "WS1ns4saouB1ZcwvwJBYuA==",
+      "fakeToken": "KCofKouLm88iWVjiQha886UpWVijD4B3zMZGK9ljoWjyE8jueB"
     }
   ],
   "authors": [

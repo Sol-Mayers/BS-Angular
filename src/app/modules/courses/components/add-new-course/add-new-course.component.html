@@ -4,51 +4,98 @@
 >
   <h2 class="pb-3">Новый курс</h2>
   <form
-    class="flex flex-column pt-3 justify-content-center align-items-flex-start gap-5"
+    [formGroup]="addCourseForm"
+    (ngSubmit)="addNewCourse()"
+    class="flex flex-column pt-3 justify-content-center align-items-flex-start"
   >
     <input
+      formControlName="title"
       pInputText
       placeholder="Наименование*"
-      class="w-6"
-      [value]="courseFields.title"
-      (input)="courseFields.title = getName($event)"
+      class="w-6 mb-2"
     />
+    <div
+      class="text-red-500"
+      *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+    >
+      <span *ngIf="title?.errors?.['required']">Заголовок обязателен.</span>
+      <span *ngIf="title?.errors?.['maxlength']"
+        >Максимальная длина 50 символов.</span
+      >
+    </div>
     <textarea
+      formControlName="description"
       pInputTextarea
       placeholder="Описание*"
-      class="w-6"
-      [value]="courseFields.description"
-      (input)="courseFields.description = getDescription($event)"
+      class="w-6 mt-4 mb-2"
     ></textarea>
-
-    <label class="flex flex-column">
+    <div
+      class="text-red-500"
+      *ngIf="
+        description?.invalid && (description?.dirty || description?.touched)
+      "
+    >
+      <span *ngIf="description?.errors?.['required']"
+        >Описание обязательно.</span
+      >
+      <span *ngIf="description?.errors?.['maxlength']"
+        >Максимальная длина 500 символов.</span
+      >
+    </div>
+    <label class="flex flex-column mt-4 mb-2">
       <input
+        formControlName="duration"
         pInputText
         placeholder="Продолжительность*"
         type="number"
         class="w-6"
-        [value]="courseFields.duration"
-        (input)="courseFields.duration = getDuration($event)"
       />
       <div *ngIf="courseFields.duration" class="ml-2">
         {{ (courseFields.duration | duration) ?? "" }}
       </div>
     </label>
+    <div class="text-red-500" *ngIf="duration?.touched && duration?.invalid">
+      <span *ngIf="duration?.errors?.['required']"
+        >Продолжительность обязательна.</span
+      >
+      <span *ngIf="duration?.errors?.['pattern']">Допустимы только числа.</span>
+    </div>
     <input
+      formControlName="creationDate"
       pInputText
       placeholder="Дата*"
       type="date"
-      class="w-6"
-      [value]="courseFields.creationDate"
-      (input)="courseFields.creationDate = getDate($event)"
+      class="w-6 mt-4 mb-2"
     />
-    <input
-      pInputText
-      placeholder="Авторы*"
-      class="w-6"
-      [value]="courseFields.authors"
-    />
-    <div class="flex gap-2">
+    <div
+      class="text-red-500"
+      *ngIf="
+        creationDate?.invalid && (creationDate?.dirty || creationDate?.touched)
+      "
+    >
+      <span *ngIf="creationDate?.errors?.['required']">Дата обязательна</span>
+    </div>
+    <span class="p-fluid mt-4 mb-2"
+      ><p-autoComplete
+        formControlName="authors"
+        [suggestions]="filteredAuthors"
+        (completeMethod)="getFilteredAuthors($event)"
+        optionLabel="name"
+        [field]="'name'"
+        [multiple]="true"
+        placeholder="Авторы*"
+        [style]="{ width: '50%' }"
+        [inputStyle]="{ width: '50%' }"
+    /></span>
+
+    <div
+      class="text-red-500"
+      *ngIf="authors?.invalid && (authors?.dirty || authors?.touched)"
+    >
+      <span>Необходимо указать хотя бы одного автора.</span>
+    </div>
+
+    <div class="flex gap-2 mt-4">
       <button
         routerLink="/courses"
         routerLinkActive="active"
@@ -58,12 +105,10 @@
       ></button>
       <button
         pButton
-        routerLink="/courses"
-        routerLinkActive="active"
         label="Сохранить"
         class="p-button-primary h-full no-underline"
-        [disabled]="!createIsAble ? false : true"
-        (click)="addNewCourse()"
+        type="submit"
+        [disabled]="!addCourseForm.valid"
       ></button>
     </div>
   </form>

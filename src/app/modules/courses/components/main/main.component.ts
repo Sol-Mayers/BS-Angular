@@ -130,8 +130,16 @@ export class MainComponent implements OnInit, OnDestroy {
       header: 'Подтвердите удаление',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.coursesService.removeItem(id).pipe(take(1)).subscribe();
-        this.coursesSubject.next(this.cachedCourses);
+        this.coursesService
+          .removeItem(id)
+          .pipe(take(1))
+          .subscribe(() => {
+            this.cachedCourses = this.cachedCourses.filter(
+              (item) => item.id != id
+            );
+            this.coursesSubject.next(this.cachedCourses);
+          });
+
         this.messageService.add({
           severity: 'success',
           summary: 'Подтверждено',

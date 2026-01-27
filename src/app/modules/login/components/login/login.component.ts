@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { loginFormInput } from 'src/app/domain/loginFormFields.interface';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -8,24 +10,20 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private readonly AuthService: AuthService) {}
-  loginFormFields: loginFormInput = {
-    email: '',
-    password: '',
-  };
+  constructor(
+    private readonly AuthService: AuthService,
+    private readonly router: Router
+  ) {}
+
   @Output() getFields: EventEmitter<loginFormInput> =
     new EventEmitter<loginFormInput>();
 
-  getEmail(event: Event): string {
-    return (event.target as HTMLInputElement).value;
-  }
-
-  getPassword(event: Event): string {
-    return (event.target as HTMLInputElement).value;
-  }
-
-  getloginFormFields(event: Event): void {
-    event.preventDefault();
-    this.AuthService.login(this.loginFormFields);
+  onSubmit(authForm: NgForm): void {
+    if (authForm.valid) {
+      this.AuthService.login(authForm.value);
+      this.router.navigate(['/courses']);
+    } else {
+      authForm.control.markAllAsTouched();
+    }
   }
 }
