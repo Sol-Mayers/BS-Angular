@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { loginFormFields } from 'src/app/domain/loginFormFields.interface';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,7 +10,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  constructor(private readonly AuthService: AuthService) {}
+  constructor(
+    private readonly AuthService: AuthService,
+    public readonly router: Router
+  ) {}
   currentUser: Observable<loginFormFields> | null = null;
 
   private _destroy$ = new Subject<void>();
@@ -27,5 +31,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout(id: string): void {
     this.AuthService.logout(id);
+    this.router.navigate(['/courses']);
   }
 }

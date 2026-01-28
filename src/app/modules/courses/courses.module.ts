@@ -23,9 +23,10 @@ import { DurationInputEditComponent } from './components/edit-course/components/
 import { AuthorsInputEditComponent } from './components/edit-course/components/authors-input/authors-input.component';
 import { CalendarModule } from 'primeng/calendar';
 import { EditCourseComponent } from './components/edit-course/edit-course.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoursesMainRoutingModule } from './courses-main-routing.module';
 import { CoursesMainComponent } from './courses-main.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,8 @@ import { CoursesMainComponent } from './courses-main.component';
     CalendarModule,
     FormsModule,
     CoursesMainRoutingModule,
+    ReactiveFormsModule,
+    AutoCompleteModule,
   ],
   providers: [ConfirmationService, MessageService],
   exports: [MainComponent],

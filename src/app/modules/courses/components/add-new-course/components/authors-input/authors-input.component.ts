@@ -12,7 +12,7 @@ export class AuthorsInputComponent {
 
   authors: string =
     this.courseFields.authors
-      ?.map((author) => [author.firstName ?? '', author.lastName ?? ''])
+      ?.map((author) => [author.firstName ?? ''])
       .join() ?? '';
 
   getAuthors(event: Event): string {

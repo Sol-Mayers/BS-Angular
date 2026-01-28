@@ -1,13 +1,15 @@
-<label class="flex flex-column">
+<label class="flex flex-column mt-2 mb-2">
   Продолжительность*
-  <input
-    pInputText
-    type="number"
-    class="w-6"
-    [value]="courseFields ? courseFields.duration : ''"
-    (input)="editedCourseFields.duration = getDuration($event)"
-  />
-  <div class="ml-2">
-    {{ courseFields ? (courseFields.duration! | duration) : "" }}
+  <div class="flex flex-row justify-content-start align-items-center mt-2">
+    <input [formControl]="duration" pInputText type="number" class="w-6" />
+    <div class="ml-2">
+      {{ (duration?.value | duration) ?? "" }}
+    </div>
   </div>
 </label>
+<div class="text-red-500" *ngIf="duration?.touched && duration?.invalid">
+  <span *ngIf="duration?.errors?.['required']"
+    >Продолжительность обязательна.</span
+  >
+  <span *ngIf="duration?.errors?.['pattern']">Допустимы только числа.</span>
+</div>

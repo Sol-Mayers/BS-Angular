@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Users } from './users.interface';
+import { Authors } from './authors.interface';
 
 export interface Courses {
   id: string;
@@ -8,7 +9,7 @@ export interface Courses {
   duration: number | null;
   description: string;
   topRated?: boolean;
-  authors?: Users[];
+  authors?: Authors[];
   //временно поставлена опциональность
 }
 export interface CoursesQueryParams {

@@ -3,15 +3,7 @@ import { Courses, CoursesQueryParams } from 'src/app/domain/courses.interface';
 import { FilterPipe } from '../search/pipes/filter.pipe';
 import { CoursesService } from 'src/app/services/courses.service';
 import { SearchComponent } from '../search/search.component';
-import {
-  BehaviorSubject,
-  finalize,
-  Observable,
-  Subject,
-  take,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, finalize, Subject, take } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { OrderByPipe } from './pipes/order-by.pipe';
 
@@ -120,6 +112,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.coursesService
       .getList(this.mainCoursesQueryprops)
       .subscribe((data) => {
+        this.isNotFound = false;
         this.cachedCourses = [...data];
         this.coursesSubject.next(this.cachedCourses);
       });
@@ -130,8 +123,16 @@ export class MainComponent implements OnInit, OnDestroy {
       header: 'Подтвердите удаление',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.coursesService.removeItem(id).pipe(take(1)).subscribe();
-        this.coursesSubject.next(this.cachedCourses);
+        this.coursesService
+          .removeItem(id)
+          .pipe(take(1))
+          .subscribe(() => {
+            this.cachedCourses = this.cachedCourses.filter(
+              (item) => item.id != id
+            );
+            this.coursesSubject.next(this.cachedCourses);
+          });
+
         this.messageService.add({
           severity: 'success',
           summary: 'Подтверждено',

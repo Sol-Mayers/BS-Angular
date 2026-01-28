@@ -6,9 +6,18 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 import { nanoid } from 'nanoid';
 import { take } from 'rxjs';
-import { Courses } from 'src/app/domain/courses.interface';
+import { Authors } from 'src/app/domain/authors.interface';
+import { AutoCompleteCompleteEvent } from 'src/app/domain/autocomplete.interface';
+import { AuthorsService } from 'src/app/services/authors.service';
 import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
@@ -18,57 +27,76 @@ import { CoursesService } from 'src/app/services/courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddNewCourseComponent implements OnInit {
-  constructor(private readonly coursesService: CoursesService) {}
+  constructor(
+    private readonly coursesService: CoursesService,
+    private readonly fb: FormBuilder,
+    private readonly authorsService: AuthorsService,
+    public readonly router: Router
+  ) {}
   @Input() routes: string[] = [];
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   route = 'Новый курс';
-  courseFields: Courses = {
-    id: nanoid(5),
-    title: '',
-    description: '',
-    duration: null,
-    creationDate: null,
-    authors: [],
-  };
-  createIsAble = false;
+  addCourseForm!: FormGroup;
+  allAuthors: Authors[] = [];
+  filteredAuthors: Authors[] = [];
+
+  getFilteredAuthors(event: AutoCompleteCompleteEvent) {
+    const filtered: Authors[] = [];
+    const query = event.query;
+
+    for (const author of this.allAuthors) {
+      if (author.name!.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+        filtered.push(author);
+      }
+    }
+
+    this.filteredAuthors = filtered;
+  }
 
   ngOnInit(): void {
+    this.authorsService.getAuthors().subscribe({
+      next: (authors) => {
+        this.allAuthors = authors;
+      },
+    });
     this.routes.push(this.route);
+
+    this.addCourseForm = this.fb.group({
+      id: [nanoid(5)],
+      title: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(500)]],
+      duration: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      creationDate: ['', [Validators.required]],
+      authors: this.fb.control<Authors | null>(null, Validators.required),
+    });
   }
 
-  getName(event: Event): string {
-    return (event.target as HTMLInputElement).value;
+  get authors() {
+    return this.addCourseForm.get('authors') as FormControl;
   }
-
-  getDescription(event: Event): string {
-    return (event.target as HTMLInputElement).value;
+  get title() {
+    return this.addCourseForm.get('title');
   }
-
-  getDate(event: Event): string {
-    return (event.target as HTMLInputElement).value;
+  get description() {
+    return this.addCourseForm.get('description');
   }
-
-  getDuration(event: Event): number {
-    return Number((event.target as HTMLInputElement).value);
+  get creationDate() {
+    return this.addCourseForm.get('creationDate');
   }
-
-  getAuthors(event: Event): void {
-    // Данный функционал будет доработан, когда будет доработан компонент авторов.
-    // const editedAuthors = (event.target as HTMLInputElement).value;
-    // const authors: Users[] = [];
-    // const newAuthor: Users = {} as Users;
-    // editedAuthors.split(',').forEach((item) => {
-    //   newAuthor.firstName = item;
-    //   newAuthor.lastName = item;
-    //   newAuthor.id = nanoid(5);
-    //   authors.push(newAuthor);
-    // });
-    // return authors;
+  get duration() {
+    return this.addCourseForm.get('duration');
   }
 
   addNewCourse(): void {
-    // this.coursesService.addItem(this.courseFields);
-    this.coursesService.addItem(this.courseFields).pipe(take(1)).subscribe();
+    if (this.addCourseForm.valid) {
+      const formValue = this.addCourseForm.value;
+      this.coursesService.addItem(formValue).pipe(take(1)).subscribe();
+      this.router.navigate(['/courses']);
+    }
+  }
+
+  cancel(): void {
+    this.router.navigate(['/courses']);
   }
 }

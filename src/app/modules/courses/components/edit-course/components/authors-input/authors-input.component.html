@@ -1,9 +1,18 @@
-<label class="flex flex-column">
+<span class="p-fluid mt-2 mb-2">
   Авторы*
-  <input
-    pInputText
-    class="w-6"
-    [value]="authors ? authors : ''"
-    (input)="authors = getAuthors($event)"
-  />
-</label>
+  <p-autoComplete
+    [formControl]="authors"
+    [suggestions]="filteredAuthors"
+    (completeMethod)="getFilteredAuthors($event)"
+    optionLabel="name"
+    [field]="'name'"
+    [multiple]="true"
+    [style]="{ width: '50%', marginTop: '0.5rem' }"
+    [inputStyle]="{ width: '50%' }"
+/></span>
+<div
+  class="text-red-500"
+  *ngIf="authors?.invalid && (authors?.dirty || authors?.touched)"
+>
+  <span>Необходимо указать хотя бы одного автора.</span>
+</div>

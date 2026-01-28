@@ -4,75 +4,81 @@
 >
   <h2 class="pb-3">Редактировать курс</h2>
   <form
-    *ngIf="courseFields | async as course"
-    class="flex flex-column pt-3 justify-content-center align-items-flex-start gap-5"
+    *ngIf="editCourseForm"
+    [formGroup]="editCourseForm"
+    (ngSubmit)="editCourse()"
+    class="flex flex-column pt-3 justify-content-center align-items-flex-start"
   >
-    <label class="flex flex-column">
+    <label class="flex flex-column mb-2">
       Наименование*
-      <input
-        pInputText
-        class="w-6"
-        [value]="course?.title ?? ''"
-        (input)="editedCourseFields.title = getName($event)"
-      />
+      <input formControlName="title" pInputText class="w-6 mt-2" />
     </label>
-    <label class="flex flex-column">
+    <div
+      class="text-red-500"
+      *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+    >
+      <span *ngIf="title?.errors?.['required']">Заголовок обязателен.</span>
+      <span *ngIf="title?.errors?.['maxlength']"
+        >Максимальная длина 50 символов.</span
+      >
+    </div>
+    <label class="flex flex-column mt-2 mb-2">
       Описание*
       <textarea
+        formControlName="description"
         pInputTextarea
-        class="w-6"
-        [value]="course?.description ?? ''"
-        (input)="editedCourseFields.description = getDescription($event)"
+        class="w-6 mt-2"
       ></textarea>
     </label>
-    <label class="flex flex-column">
-      Продолжительность*
-      <input
-        pInputText
-        type="number"
-        class="w-6"
-        [value]="course.duration ?? ''"
-        (input)="editedCourseFields.duration = getDuration($event)"
-      />
-      <div class="ml-2">
-        {{ (course.duration! | duration) ?? "" }}
-      </div>
-    </label>
-    <label class="flex flex-column">
+    <div
+      class="text-red-500"
+      *ngIf="
+        description?.invalid && (description?.dirty || description?.touched)
+      "
+    >
+      <span *ngIf="description?.errors?.['required']"
+        >Описание обязательно.</span
+      >
+      <span *ngIf="description?.errors?.['maxlength']"
+        >Максимальная длина 500 символов.</span
+      >
+    </div>
+    <app-duration-edit-input [duration]="duration"></app-duration-edit-input>
+    <label class="flex flex-column mt-2 mb-2">
       Дата*
       <input
+        formControlName="creationDate"
         pInputText
         type="date"
-        class="w-6"
-        [value]="
-          course?.creationDate
-            ? (course.creationDate | date : 'yyyy-MM-dd')
-            : ''
-        "
-        (input)="editedCourseFields.creationDate = getDate($event)"
+        class="w-6 mt-2"
       />
     </label>
-    <label class="flex flex-column">
-      Авторы*
-      <input pInputText class="w-6" [value]="getInputAuthors()" />
-    </label>
-    <div class="flex gap-2">
+    <div
+      class="text-red-500"
+      *ngIf="
+        creationDate?.invalid && (creationDate?.dirty || creationDate?.touched)
+      "
+    >
+      <span *ngIf="creationDate?.errors?.['required']">Дата обязательна</span>
+    </div>
+    <app-authors-edit-input
+      [authors]="authors"
+      [filteredAuthors]="filteredAuthors"
+      (getFilterAuthors)="getFilteredAuthors($event)"
+    ></app-authors-edit-input>
+    <div class="flex gap-2 mt-4">
       <button
         pButton
-        routerLink="/courses"
-        routerLinkActive="active"
         label="Отмена"
         class="h-full no-underline text-primary custom_cancel-button"
-        (click)="cancelCreateNewCourse($event)"
+        (click)="cancel()"
       ></button>
       <button
         pButton
-        routerLink="/courses"
-        routerLinkActive="active"
         label="Сохранить"
         class="p-button-primary h-full no-underline"
-        [disabled]="!createIsAble ? false : true"
-        (click)="editCourse()"
+        [disabled]="!editCourseForm.valid"
+        type="submit"
       ></button>
     </div>
   </form>

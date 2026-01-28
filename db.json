@@ -1,21 +1,6 @@
 {
   "courses": [
     {
-      "id": "8693",
-      "title": "duis mollit reprehenderit ad",
-      "description": "Est minim ea aute sunt laborum minim eu excepteur. Culpa sint exercitation mollit enim ad culpa aliquip laborum cillum. Dolor officia culpa labore ex eiusmod ut est ea voluptate ea nostrud.",
-      "topRated": false,
-      "creationDate": "2020-09-28T04:39:24+00:00",
-      "authors": [
-        {
-          "id": 1370,
-          "firstName": "Polly",
-          "lastName": "Sosa"
-        }
-      ],
-      "duration": 157
-    },
-    {
       "id": "4980",
       "title": "magna excepteur aute deserunt",
       "creationDate": "2019-05-31T02:02:36.000Z",
@@ -25,16 +10,15 @@
       "authors": [
         {
           "id": 8413,
-          "firstName": "Greta",
-          "lastName": "Richardson"
+          "name": "Greta Richardson"
         },
         {
           "id": "5b7a84624010db4d640e0099",
-          "firstName": "Vincent Doyle"
+          "name": "Vincent Doyle"
         },
         {
           "id": "5b7a84628f39d42b3d56174f",
-          "firstName": "Deleon Gill"
+          "name": "Deleon Gill"
         }
       ]
     },
@@ -47,39 +31,14 @@
       "authors": [
         {
           "id": 3618,
-          "firstName": "Laura",
-          "lastName": "Kirby"
+          "name": "Laura Kirby"
         },
         {
           "id": 9064,
-          "firstName": "Quinn",
-          "lastName": "Cain"
+          "name": "Quinn Cain"
         }
       ],
       "duration": 197
-    },
-    {
-      "id": "1936",
-      "title": "reprehenderit est veniam elitdsfdsf",
-      "creationDate": "2019-03-18T06:36:07.000Z",
-      "duration": 232,
-      "description": "Consectetur veniam non nulla in laboris minim ipsum. Dolor aliqua irure sint do irure magna tempor culpa quis. Deserunt amet occaecat velit sit.",
-      "topRated": true,
-      "authors": [
-        {
-          "id": 9926,
-          "firstName": "Burt",
-          "lastName": "Holland"
-        },
-        {
-          "id": "5b7a84624010db4d640e0099",
-          "firstName": "Vincent Doyle"
-        },
-        {
-          "id": "5b7a8462863c25502ed32168",
-          "firstName": "Janna Kelly"
-        }
-      ]
     },
     {
       "id": "2006",
@@ -90,23 +49,19 @@
       "authors": [
         {
           "id": 21,
-          "firstName": "Maddox",
-          "lastName": "Diaz"
+          "name": "Maddox Diaz"
         },
         {
           "id": 800,
-          "firstName": "Glenda",
-          "lastName": "Juarez"
+          "name": "Glenda Juarez"
         },
         {
           "id": 1772,
-          "firstName": "Hilda",
-          "lastName": "Gaines"
+          "name": "Hilda Gaines"
         },
         {
           "id": 3003,
-          "firstName": "Abbott",
-          "lastName": "Mckay"
+          "name": "Abbott Mckay"
         }
       ],
       "duration": 42
@@ -120,18 +75,15 @@
       "authors": [
         {
           "id": 1167,
-          "firstName": "Garrison",
-          "lastName": "Chambers"
+          "name": "Garrison Chambers"
         },
         {
           "id": 9215,
-          "firstName": "Ofelia",
-          "lastName": "Rodgers"
+          "name": "Ofelia Rodgers"
         },
         {
           "id": 978,
-          "firstName": "Avila",
-          "lastName": "Bolton"
+          "name": "Avila Bolton"
         }
       ],
       "duration": 52
@@ -145,18 +97,15 @@
       "authors": [
         {
           "id": 5524,
-          "firstName": "Cobb",
-          "lastName": "Hudson"
+          "name": "Cobb Hudson"
         },
         {
           "id": 5341,
-          "firstName": "Nettie",
-          "lastName": "Sanford"
+          "name": "Nettie Sanford"
         },
         {
           "id": 7333,
-          "firstName": "Michele",
-          "lastName": "Cunningham"
+          "name": "Michele Cunningham"
         }
       ],
       "duration": 269
@@ -165,16 +114,14 @@
       "id": "5834",
       "title": "nulla eu ex aute",
       "description": "Aute anim dolore duis quis ut reprehenderit dolore nostrud duis est cupidatat consequat. Ea ipsum duis esse est ullamco nulla sunt culpa. Proident Lorem ipsum Lorem incididunt deserunt dolore.",
-      "topRated": false,
-      "creationDate": "2019-04-30T18:46:36+00:00",
+      "duration": 310,
+      "creationDate": "2019-04-23",
       "authors": [
         {
-          "id": 8318,
-          "firstName": "Rowland",
-          "lastName": "Vasquez"
+          "id": "5b7a8462435c9561be3d94b1",
+          "name": "Gallagher Hobbs"
         }
-      ],
-      "duration": 310
+      ]
     },
     {
       "id": "9664",
@@ -185,23 +132,19 @@
       "authors": [
         {
           "id": 4441,
-          "firstName": "Willa",
-          "lastName": "Cortez"
+          "name": "Willa Cortez"
         },
         {
           "id": 9562,
-          "firstName": "Dejesus",
-          "lastName": "Snow"
+          "name": "Dejesus Snow"
         },
         {
           "id": 4998,
-          "firstName": "Doyle",
-          "lastName": "Webster"
+          "name": "Doyle Webster"
         },
         {
           "id": 2138,
-          "firstName": "Torres",
-          "lastName": "Farley"
+          "name": "Torres Farley"
         }
       ],
       "duration": 274
@@ -215,23 +158,19 @@
       "authors": [
         {
           "id": 3509,
-          "firstName": "Jessie",
-          "lastName": "Kelly"
+          "name": "Jessie Kelly"
         },
         {
           "id": 7653,
-          "firstName": "Miranda",
-          "lastName": "Christian"
+          "name": "Miranda Christian"
         },
         {
           "id": 6185,
-          "firstName": "Yvette",
-          "lastName": "Foster"
+          "name": "Yvette Foster"
         },
         {
           "id": 5186,
-          "firstName": "Russell",
-          "lastName": "Butler"
+          "name": "Russell Butler"
         }
       ],
       "duration": 71
@@ -245,8 +184,7 @@
       "authors": [
         {
           "id": 1416,
-          "firstName": "Ashlee",
-          "lastName": "Hines"
+          "name": "Ashlee Hines"
         }
       ],
       "duration": 191
@@ -260,8 +198,7 @@
       "authors": [
         {
           "id": 4165,
-          "firstName": "Gilda",
-          "lastName": "Huff"
+          "name": "Gilda Huff"
         }
       ],
       "duration": 119
@@ -275,12 +212,12 @@
       "authors": [
         {
           "id": 1980,
-          "firstName": "Leona",
+          "name": "Leona Bailey",
           "lastName": "Bailey"
         },
         {
           "id": 5365,
-          "firstName": "Edwards",
+          "name": "Edwards Nunez",
           "lastName": "Nunez"
         }
       ],
@@ -295,12 +232,12 @@
       "authors": [
         {
           "id": 248,
-          "firstName": "Millie",
+          "name": "Millie Schneider",
           "lastName": "Schneider"
         },
         {
           "id": 3517,
-          "firstName": "Burke",
+          "name": "Burke Eaton",
           "lastName": "Eaton"
         }
       ],
@@ -315,22 +252,22 @@
       "authors": [
         {
           "id": 7827,
-          "firstName": "Lorna",
+          "name": "Lorna Joyce",
           "lastName": "Joyce"
         },
         {
           "id": 8335,
-          "firstName": "Ronda",
+          "name": "Ronda Dean",
           "lastName": "Dean"
         },
         {
           "id": 57,
-          "firstName": "Lola",
+          "name": "Lola Glass",
           "lastName": "Glass"
         },
         {
           "id": 4831,
-          "firstName": "Noreen",
+          "name": "Noreen Sullivan",
           "lastName": "Sullivan"
         }
       ],
@@ -345,46 +282,11 @@
       "authors": [
         {
           "id": 3343,
-          "firstName": "Margie",
+          "name": "Margie Cote",
           "lastName": "Cote"
         }
       ],
       "duration": 283
-    },
-    {
-      "id": "8476",
-      "title": "ea est ex veniam",
-      "description": "Nostrud incididunt veniam consectetur cillum. Pariatur culpa dolor esse elit aliqua duis. Adipisicing exercitation nostrud ullamco occaecat ut et.",
-      "topRated": true,
-      "creationDate": "2020-09-08T19:51:30+00:00",
-      "authors": [
-        {
-          "id": 441,
-          "firstName": "Vance",
-          "lastName": "Reynolds"
-        }
-      ],
-      "duration": 346
-    },
-    {
-      "id": "6240",
-      "title": "sint voluptate Lorem laboris",
-      "description": "Tempor aute enim qui irure. Culpa elit ut nulla qui dolore eiusmod eiusmod incididunt commodo ipsum. Anim quis exercitation sint officia laborum officia.",
-      "topRated": false,
-      "creationDate": "2020-08-15T15:27:05+00:00",
-      "authors": [
-        {
-          "id": 9101,
-          "firstName": "Singleton",
-          "lastName": "Ellison"
-        },
-        {
-          "id": 638,
-          "firstName": "Weeks",
-          "lastName": "Santos"
-        }
-      ],
-      "duration": 267
     },
     {
       "id": "7349",
@@ -395,22 +297,22 @@
       "authors": [
         {
           "id": 3121,
-          "firstName": "Twila",
+          "name": "Twila Jennings",
           "lastName": "Jennings"
         },
         {
           "id": 6880,
-          "firstName": "Irma",
+          "name": "Irma Martinez",
           "lastName": "Martinez"
         },
         {
           "id": 6039,
-          "firstName": "Mcgowan",
+          "name": "Mcgowan Nelson",
           "lastName": "Nelson"
         },
         {
           "id": 8235,
-          "firstName": "Parks",
+          "name": "Parks Mack",
           "lastName": "Mack"
         }
       ],
@@ -425,56 +327,26 @@
       "authors": [
         {
           "id": 1861,
-          "firstName": "Michael",
+          "name": "Michael Stout",
           "lastName": "Stout"
         },
         {
           "id": 9950,
-          "firstName": "Roy",
+          "name": "Roy George",
           "lastName": "George"
         },
         {
           "id": 3907,
-          "firstName": "Macdonald",
+          "name": "Macdonald Ward",
           "lastName": "Ward"
         },
         {
           "id": 4388,
-          "firstName": "Oneil",
+          "name": "Oneil Carlson",
           "lastName": "Carlson"
         }
       ],
       "duration": 390
-    },
-    {
-      "id": "5848",
-      "title": "енгнгннш",
-      "description": "Deserunt nulla nisi tempor ea tempor officia qui occaecat consectetur aliqua esse occaecat. Cillum anim veniam pariatur sint. Lorem Lorem aute anim culpa duis commodo officia labore laborum eiusmod qui irure amet pariatur.",
-      "topRated": true,
-      "creationDate": "2020-10-07T09:23:08+00:00",
-      "authors": [
-        {
-          "id": 2700,
-          "firstName": "Wynn",
-          "lastName": "Knowles"
-        },
-        {
-          "id": 1048,
-          "firstName": "Casey",
-          "lastName": "Terry"
-        },
-        {
-          "id": 5187,
-          "firstName": "Etta",
-          "lastName": "Key"
-        },
-        {
-          "id": 1939,
-          "firstName": "Hilary",
-          "lastName": "Mcdowell"
-        }
-      ],
-      "duration": 46
     },
     {
       "id": "348",
@@ -485,7 +357,7 @@
       "authors": [
         {
           "id": 5653,
-          "firstName": "Leblanc",
+          "name": "Leblanc Bradley",
           "lastName": "Bradley"
         }
       ],
@@ -500,17 +372,17 @@
       "authors": [
         {
           "id": 612,
-          "firstName": "Pam",
+          "name": "Pam Vazquez",
           "lastName": "Vazquez"
         },
         {
           "id": 6050,
-          "firstName": "Norman",
+          "name": "Norman Love",
           "lastName": "Love"
         },
         {
           "id": 2252,
-          "firstName": "Reba",
+          "name": "Reba Perez",
           "lastName": "Perez"
         }
       ],
@@ -525,37 +397,42 @@
       "authors": ""
     },
     {
-      "id": "9819",
-      "title": "test",
-      "creationDate": "2020-06-30T21:00:00.000Z",
-      "duration": 85,
-      "description": "veryveryveryvery loooooooooooooooooooooooooooooong text",
+      "id": "slSZE",
+      "title": "tyueetru",
+      "description": "fsghfgdh",
+      "duration": 3,
+      "creationDate": "2026-01-27",
+      "authors": []
+    },
+    {
+      "id": "",
+      "title": "Новенький курс",
+      "description": "bdfbfdb",
+      "duration": 1,
+      "creationDate": "2026-01-28",
       "authors": [
         {
-          "id": "5b7a84624010db4d640e0099",
-          "firstName": "Vincent Doyle"
+          "id": "5b7a846290d6ff6894377fb5",
+          "name": "Decker Albert"
         },
         {
-          "id": "5b7a84628298a95c17462193",
-          "firstName": "Carey Jarvis"
+          "id": "5b7a8462f3034f386fae2be4",
+          "name": "Atkins Newman"
         }
       ]
     },
     {
-      "id": "xwjox",
-      "title": "fsdfd",
-      "description": "gasgfd",
-      "duration": 2,
-      "creationDate": null,
-      "authors": []
-    },
-    {
-      "id": "9SPcP",
-      "title": "reg",
-      "description": "dgdfh",
-      "duration": 2,
-      "creationDate": "2026-01-28",
-      "authors": []
+      "id": "YxUC8",
+      "title": "eyrtytr",
+      "description": "dfjgfdjgfdj",
+      "duration": 3,
+      "creationDate": "2026-01-29",
+      "authors": [
+        {
+          "id": "5b7a8462db677f5f1fedd275",
+          "name": "Baird Bright"
+        }
+      ]
     }
   ],
   "users": [
@@ -672,12 +549,12 @@
       "fakeToken": "Uy1qX4X6vvXpEvLFTFo0yFt24FN2GAtc0biOCovilTPgTxpTdv"
     },
     {
-      "id": "c8AD4",
-      "firstName": "rgdsf",
-      "lastName": "rgdsf",
-      "email": "rgdsf",
-      "password": "iWYi1tlmRiiKx0GU4I09Sw==",
-      "fakeToken": "8Ic2rR6ssAuk4P6IuYr3huUHGHbYUosiTW1UjFsweHAo9qki8y"
+      "id": "z13AQ",
+      "firstName": "eyuytuytrurtyu@dfgfd.ru",
+      "lastName": "eyuytuytrurtyu@dfgfd.ru",
+      "email": "eyuytuytrurtyu@dfgfd.ru",
+      "password": "cSpJCBRU+o5dQo472uFBhw==",
+      "fakeToken": "11cYFxjMaWiba0mz2nSADVV5qlV1IOS7pfKBvk1ylAwFCK0ITF"
     }
   ],
   "authors": [

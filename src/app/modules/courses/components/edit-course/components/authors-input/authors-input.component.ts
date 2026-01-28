@@ -1,9 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
-  OnInit,
+  Output,
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Authors } from 'src/app/domain/authors.interface';
+import { AutoCompleteCompleteEvent } from 'src/app/domain/autocomplete.interface';
 import { Courses } from 'src/app/domain/courses.interface';
 
 @Component({
@@ -12,22 +16,14 @@ import { Courses } from 'src/app/domain/courses.interface';
   styleUrls: ['./authors-input.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthorsInputEditComponent implements OnInit {
+export class AuthorsInputEditComponent {
   @Input() courseFields: Courses = {} as Courses;
-  authors = '';
+  @Input() authors!: FormControl;
+  @Input() filteredAuthors: Authors[] = [];
+  @Output() getFilterAuthors: EventEmitter<AutoCompleteCompleteEvent> =
+    new EventEmitter<AutoCompleteCompleteEvent>();
 
-  ngOnInit(): void {
-    this.authors =
-      this.courseFields.authors
-        ?.map(
-          (author) =>
-            (author.firstName ? author.firstName : '') +
-            ' ' +
-            (author.lastName ? author.lastName : '')
-        )
-        .join(', ') ?? '';
-  }
-  getAuthors(event: Event): string {
-    return (event.target as HTMLInputElement).value;
+  getFilteredAuthors(event: AutoCompleteCompleteEvent): void {
+    this.getFilterAuthors.emit(event);
   }
 }

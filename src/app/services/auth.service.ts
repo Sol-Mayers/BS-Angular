@@ -7,6 +7,7 @@ import { EncryptionService } from './encryption.service';
 import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { nanoid } from 'nanoid';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -40,22 +41,6 @@ export class AuthService {
   // Вход и сохранение данных о пользователе в базу данных.
   // Временно работает и как регистрация и как вход.
   public login(loginFormFields: loginFormInput): void {
-    let hasEmptyFields = false;
-    const formFields = Object.values(loginFormFields);
-
-    for (let i = 0; i <= formFields.length - 1; i++) {
-      if (formFields[i].trim() === '') {
-        hasEmptyFields = true;
-        break;
-      }
-    }
-
-    if (hasEmptyFields) {
-      // Временное оповещение о пустых полях!!!
-      alert('Заполните все поля!');
-      return;
-    }
-
     const hashPassword = this.hashPassword(loginFormFields);
     const token = this.token();
 
@@ -71,9 +56,7 @@ export class AuthService {
     localStorage.setItem('coursesUserToken', token);
     this.httpClient
       .post<loginFormFields>(`${this.mainUrl}/users`, userInfo)
-      .subscribe({
-        next: (data) => console.log(data),
-      });
+      .subscribe();
 
     // Обновляем состояние авторизации
     this.currentUser = token;
@@ -85,7 +68,6 @@ export class AuthService {
       .delete<loginFormFields>(`${this.mainUrl}/users/${id}`)
       .subscribe({
         next: (user) => {
-          console.log(user);
           console.log(`Выход ${user.firstName}`);
         },
         error: (err) => console.log(`Ошибка при выходе, ${err}`),
