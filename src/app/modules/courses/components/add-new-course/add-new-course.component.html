@@ -43,15 +43,17 @@
       >
     </div>
     <label class="flex flex-column mt-4 mb-2">
-      <input
-        formControlName="duration"
-        pInputText
-        placeholder="Продолжительность*"
-        type="number"
-        class="w-6"
-      />
-      <div *ngIf="courseFields.duration" class="ml-2">
-        {{ (courseFields.duration | duration) ?? "" }}
+      <div class="flex flex-row justify-content-start align-items-center">
+        <input
+          formControlName="duration"
+          pInputText
+          placeholder="Продолжительность*"
+          type="number"
+          class="w-6"
+        />
+        <div *ngIf="duration" class="ml-2">
+          {{ (addCourseForm.get("duration")?.value | duration) ?? "" }}
+        </div>
       </div>
     </label>
     <div class="text-red-500" *ngIf="duration?.touched && duration?.invalid">
@@ -97,11 +99,10 @@
 
     <div class="flex gap-2 mt-4">
       <button
-        routerLink="/courses"
-        routerLinkActive="active"
         pButton
         label="Отмена"
         class="h-full no-underline text-primary custom_cancel-button"
+        (click)="cancel()"
       ></button>
       <button
         pButton

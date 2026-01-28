@@ -7,22 +7,16 @@ import {
   Output,
 } from '@angular/core';
 import {
-  AbstractControl,
-  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
-  ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { nanoid } from 'nanoid';
-import { Observable, take } from 'rxjs';
-import { AuthorFormGroup, Authors } from 'src/app/domain/authors.interface';
+import { take } from 'rxjs';
+import { Authors } from 'src/app/domain/authors.interface';
 import { AutoCompleteCompleteEvent } from 'src/app/domain/autocomplete.interface';
-import { Courses } from 'src/app/domain/courses.interface';
-import { Users } from 'src/app/domain/users.interface';
 import { AuthorsService } from 'src/app/services/authors.service';
 import { CoursesService } from 'src/app/services/courses.service';
 
@@ -43,15 +37,6 @@ export class AddNewCourseComponent implements OnInit {
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   route = 'Новый курс';
-  courseFields: Courses = {
-    id: nanoid(5),
-    title: '',
-    description: '',
-    duration: null,
-    creationDate: null,
-    authors: [],
-  };
-  createIsAble = false;
   addCourseForm!: FormGroup;
   allAuthors: Authors[] = [];
   filteredAuthors: Authors[] = [];
@@ -61,7 +46,7 @@ export class AddNewCourseComponent implements OnInit {
     const query = event.query;
 
     for (const author of this.allAuthors) {
-      if (author.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+      if (author.name!.toLowerCase().indexOf(query.toLowerCase()) === 0) {
         filtered.push(author);
       }
     }
@@ -78,7 +63,7 @@ export class AddNewCourseComponent implements OnInit {
     this.routes.push(this.route);
 
     this.addCourseForm = this.fb.group({
-      id: [''],
+      id: [nanoid(5)],
       title: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(500)]],
       duration: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
@@ -105,11 +90,13 @@ export class AddNewCourseComponent implements OnInit {
 
   addNewCourse(): void {
     if (this.addCourseForm.valid) {
-      // обработка сохранения
       const formValue = this.addCourseForm.value;
-      console.log('Form submitted', formValue);
       this.coursesService.addItem(formValue).pipe(take(1)).subscribe();
       this.router.navigate(['/courses']);
     }
+  }
+
+  cancel(): void {
+    this.router.navigate(['/courses']);
   }
 }

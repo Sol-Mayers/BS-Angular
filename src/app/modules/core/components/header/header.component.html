@@ -13,12 +13,10 @@
         class="text-900 no-underline flex flex-row justify-content-center align-items-center"
       >
         <i class="pi pi-user mr-2"></i>
-        <span>{{ user.firstName + " " + user.lastName }}</span>
+        <span>{{ user.firstName }}</span>
       </a>
       <button
         pButton
-        routerLink="/login"
-        routerLinkActive="active"
         class="text-900 no-underline flex flex-row justify-content-center align-items-center p-button-link font-medium"
         (click)="logout(user.id)"
       >
