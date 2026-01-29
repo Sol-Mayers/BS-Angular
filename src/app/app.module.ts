@@ -14,6 +14,12 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { CoursesEffectsEffects } from './store/courses/effects/courses-effects.effects';
 
 registerLocaleData(localeRu);
 
@@ -31,6 +37,11 @@ registerLocaleData(localeRu);
     CalendarModule,
     AppRoutingModule,
     HttpClientModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production
+      ? StoreDevtoolsModule.instrument({ maxAge: 25 })
+      : [],
+    EffectsModule.forRoot([CoursesEffectsEffects]),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru-RU' },
