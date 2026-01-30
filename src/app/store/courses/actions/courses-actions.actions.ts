@@ -7,5 +7,8 @@ export const CoursesActions = createActionGroup({
     'Get Courses': props<{ data: CoursesQueryParams }>(),
     'Get Courses Success': props<{ data: Courses[] }>(),
     'Get Courses Failure': props<{ error: unknown }>(),
+    'Delete Course': props<{ data: string }>(),
+    'Delete Course Success': props<{ id: string }>(),
+    'Delete Course Failure': props<{ error: unknown }>(),
   },
 });

@@ -28,6 +28,22 @@ export class CoursesEffectsEffects {
     )
   );
 
+  public deleteCourse$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromCoursesActions.CoursesActions.deleteCourse),
+      switchMap(({ data }) =>
+        this.coursesService.removeItem(data).pipe(
+          map(() =>
+            fromCoursesActions.CoursesActions.deleteCourseSuccess({ id: data })
+          ),
+          catchError((error) =>
+            of(fromCoursesActions.CoursesActions.getCoursesFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
   public getCoursesSuccess$ = createEffect(
     () =>
       this.actions$.pipe(

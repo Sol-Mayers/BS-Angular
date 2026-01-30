@@ -29,5 +29,21 @@ export const reducer = createReducer(
   on(fromCoursesActions.CoursesActions.getCoursesFailure, (state) => ({
     ...state,
     isLoading: false,
+  })),
+  on(fromCoursesActions.CoursesActions.deleteCourse, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+  on(
+    fromCoursesActions.CoursesActions.deleteCourseSuccess,
+    (state, { id }) => ({
+      ...state,
+      courses: state.courses.filter((c) => c.id !== id),
+      isLoading: false,
+    })
+  ),
+  on(fromCoursesActions.CoursesActions.deleteCourseFailure, (state) => ({
+    ...state,
+    isLoading: false,
   }))
 );

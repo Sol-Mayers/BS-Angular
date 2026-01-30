@@ -11,7 +11,7 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 export class CoursesComponent {
   @Input() courses: Courses[] = [];
-  @Input() isNotFound = false;
+  @Input() isNotFound!: boolean;
   @Output() edit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() delete: EventEmitter<string> = new EventEmitter<string>();
   @Output() courseToEdit: EventEmitter<Courses> = new EventEmitter<Courses>();
