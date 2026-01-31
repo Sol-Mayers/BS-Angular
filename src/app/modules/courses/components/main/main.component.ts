@@ -21,7 +21,6 @@ import { CoursesActions } from 'src/app/store/courses/actions/courses-actions.ac
 })
 export class MainComponent implements OnInit, OnDestroy {
   constructor(
-    private readonly coursesService: CoursesService,
     private readonly confirmationService: ConfirmationService,
     private readonly messageService: MessageService,
     private readonly store: Store<CoursesState>
@@ -44,8 +43,6 @@ export class MainComponent implements OnInit, OnDestroy {
   };
   showMoreButton = true;
   private destroy$ = new Subject<void>();
-
-  private cachedCourses: Courses[] = [];
 
   courses$: Observable<Courses[]> = this.store.select(selectCourses);
 

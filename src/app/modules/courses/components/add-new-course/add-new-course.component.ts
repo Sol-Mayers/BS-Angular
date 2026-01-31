@@ -13,12 +13,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { nanoid } from 'nanoid';
-import { take } from 'rxjs';
 import { Authors } from 'src/app/domain/authors.interface';
 import { AutoCompleteCompleteEvent } from 'src/app/domain/autocomplete.interface';
 import { AuthorsService } from 'src/app/services/authors.service';
-import { CoursesService } from 'src/app/services/courses.service';
+import { CoursesState } from 'src/app/store';
+import { CoursesActions } from 'src/app/store/courses/actions/courses-actions.actions';
 
 @Component({
   selector: 'app-add-new-course',
@@ -28,10 +29,10 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 export class AddNewCourseComponent implements OnInit {
   constructor(
-    private readonly coursesService: CoursesService,
     private readonly fb: FormBuilder,
     private readonly authorsService: AuthorsService,
-    public readonly router: Router
+    public readonly router: Router,
+    private readonly store: Store<CoursesState>
   ) {}
   @Input() routes: string[] = [];
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -91,7 +92,7 @@ export class AddNewCourseComponent implements OnInit {
   addNewCourse(): void {
     if (this.addCourseForm.valid) {
       const formValue = this.addCourseForm.value;
-      this.coursesService.addItem(formValue).pipe(take(1)).subscribe();
+      this.store.dispatch(CoursesActions.createCourse({ data: formValue }));
       this.router.navigate(['/courses']);
     }
   }

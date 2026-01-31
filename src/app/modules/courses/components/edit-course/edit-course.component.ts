@@ -14,13 +14,16 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { map, Observable, take, tap } from 'rxjs';
 import { Authors } from 'src/app/domain/authors.interface';
 import { AutoCompleteCompleteEvent } from 'src/app/domain/autocomplete.interface';
 import { Courses } from 'src/app/domain/courses.interface';
 import { AuthorsService } from 'src/app/services/authors.service';
 import { BreadcrumbsService } from 'src/app/services/breadcrumbs.service';
-import { CoursesService } from 'src/app/services/courses.service';
+import { CoursesState } from 'src/app/store';
+import { CoursesActions } from 'src/app/store/courses/actions/courses-actions.actions';
+import { selectCourses } from 'src/app/store/courses/selectors/courses-selectors.selectors';
 
 @Component({
   selector: 'app-edit-course',
@@ -31,17 +34,17 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 export class EditCourseComponent implements OnInit {
   constructor(
-    private readonly coursesService: CoursesService,
     private currentRoute: ActivatedRoute,
     private readonly breadcrumbService: BreadcrumbsService,
     private readonly fb: FormBuilder,
     private readonly authorsService: AuthorsService,
     private cd: ChangeDetectorRef,
     private datePipe: DatePipe,
-    public readonly router: Router
+    public readonly router: Router,
+    private readonly store: Store<CoursesState>
   ) {}
 
-  courses: Observable<Courses[]> = this.coursesService.getList();
+  courses: Observable<Courses[]> = this.store.select(selectCourses);
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   editCourseForm!: FormGroup;
@@ -139,7 +142,7 @@ export class EditCourseComponent implements OnInit {
   editCourse(): void {
     if (this.editCourseForm) {
       const formValue = this.editCourseForm.value;
-      this.coursesService.updateItem(formValue).pipe(take(1)).subscribe();
+      this.store.dispatch(CoursesActions.updateCourse({ data: formValue }));
       this.router.navigate(['/courses']);
     }
   }

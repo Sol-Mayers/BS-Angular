@@ -45,5 +45,39 @@ export const reducer = createReducer(
   on(fromCoursesActions.CoursesActions.deleteCourseFailure, (state) => ({
     ...state,
     isLoading: false,
+  })),
+  on(fromCoursesActions.CoursesActions.createCourse, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+  on(
+    fromCoursesActions.CoursesActions.createCourseSuccess,
+    (state, { data }) => ({
+      ...state,
+      courses: [...state.courses, data],
+      isLoading: false,
+    })
+  ),
+  on(fromCoursesActions.CoursesActions.createCourseFailure, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+  on(fromCoursesActions.CoursesActions.updateCourse, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+  on(
+    fromCoursesActions.CoursesActions.updateCourseSuccess,
+    (state, { data }) => ({
+      ...state,
+      courses: state.courses.map((course) =>
+        course.id === data.id ? data : course
+      ),
+      isLoading: false,
+    })
+  ),
+  on(fromCoursesActions.CoursesActions.updateCourseFailure, (state) => ({
+    ...state,
+    isLoading: false,
   }))
 );

@@ -1,4 +1,4 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { createActionGroup, props } from '@ngrx/store';
 import { Courses, CoursesQueryParams } from 'src/app/domain/courses.interface';
 
 export const CoursesActions = createActionGroup({
@@ -10,5 +10,11 @@ export const CoursesActions = createActionGroup({
     'Delete Course': props<{ data: string }>(),
     'Delete Course Success': props<{ id: string }>(),
     'Delete Course Failure': props<{ error: unknown }>(),
+    'Create Course': props<{ data: Courses }>(),
+    'Create Course Success': props<{ data: Courses }>(),
+    'Create Course Failure': props<{ error: unknown }>(),
+    'Update Course': props<{ data: Courses }>(),
+    'Update Course Success': props<{ data: Courses }>(),
+    'Update Course Failure': props<{ error: unknown }>(),
   },
 });

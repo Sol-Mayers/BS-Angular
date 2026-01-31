@@ -44,6 +44,42 @@ export class CoursesEffectsEffects {
     )
   );
 
+  public createCourse$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromCoursesActions.CoursesActions.createCourse),
+      switchMap(({ data }) =>
+        this.coursesService.addItem(data).pipe(
+          map(() =>
+            fromCoursesActions.CoursesActions.createCourseSuccess({
+              data: data,
+            })
+          ),
+          catchError((error) =>
+            of(fromCoursesActions.CoursesActions.createCourseFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  public updateCourse$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromCoursesActions.CoursesActions.updateCourse),
+      switchMap(({ data }) =>
+        this.coursesService.updateItem(data).pipe(
+          map(() =>
+            fromCoursesActions.CoursesActions.updateCourseSuccess({
+              data: data,
+            })
+          ),
+          catchError((error) =>
+            of(fromCoursesActions.CoursesActions.updateCourseFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
   public getCoursesSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
