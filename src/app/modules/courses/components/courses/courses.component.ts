@@ -1,8 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { Observable, take } from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Courses } from 'src/app/domain/courses.interface';
-import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -11,7 +8,7 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 export class CoursesComponent {
   @Input() courses: Courses[] = [];
-  @Input() isNotFound = false;
+  @Input() isNotFound!: boolean;
   @Output() edit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() delete: EventEmitter<string> = new EventEmitter<string>();
   @Output() courseToEdit: EventEmitter<Courses> = new EventEmitter<Courses>();

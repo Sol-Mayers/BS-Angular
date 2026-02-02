@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -13,12 +14,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { nanoid } from 'nanoid';
-import { take } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Authors } from 'src/app/domain/authors.interface';
 import { AutoCompleteCompleteEvent } from 'src/app/domain/autocomplete.interface';
-import { AuthorsService } from 'src/app/services/authors.service';
-import { CoursesService } from 'src/app/services/courses.service';
+import { CoursesState } from 'src/app/store';
+import { selectAuthors } from 'src/app/store/authors/selectors/authors-selectors.selectors';
+import { CoursesActions } from 'src/app/store/courses/actions/courses-actions.actions';
+import { AuthorsActions } from 'src/app/store/authors/actions/authors-actions.actions';
 
 @Component({
   selector: 'app-add-new-course',
@@ -26,40 +30,39 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./add-new-course.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddNewCourseComponent implements OnInit {
+export class AddNewCourseComponent implements OnInit, OnDestroy {
   constructor(
-    private readonly coursesService: CoursesService,
     private readonly fb: FormBuilder,
-    private readonly authorsService: AuthorsService,
-    public readonly router: Router
+    public readonly router: Router,
+    private readonly store: Store<CoursesState>
   ) {}
   @Input() routes: string[] = [];
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   route = 'Новый курс';
   addCourseForm!: FormGroup;
-  allAuthors: Authors[] = [];
+  allAuthors: Observable<Authors[]> = this.store.select(selectAuthors);
   filteredAuthors: Authors[] = [];
+  private destroy$ = new Subject<void>();
 
   getFilteredAuthors(event: AutoCompleteCompleteEvent) {
     const filtered: Authors[] = [];
     const query = event.query;
 
-    for (const author of this.allAuthors) {
-      if (author.name!.toLowerCase().indexOf(query.toLowerCase()) === 0) {
-        filtered.push(author);
+    this.allAuthors.pipe(takeUntil(this.destroy$)).subscribe((authors) => {
+      for (const author of authors) {
+        if (author.name!.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+          filtered.push(author);
+        }
       }
-    }
+    });
 
     this.filteredAuthors = filtered;
   }
 
   ngOnInit(): void {
-    this.authorsService.getAuthors().subscribe({
-      next: (authors) => {
-        this.allAuthors = authors;
-      },
-    });
+    this.store.dispatch(AuthorsActions.getAuthors());
+
     this.routes.push(this.route);
 
     this.addCourseForm = this.fb.group({
@@ -91,12 +94,17 @@ export class AddNewCourseComponent implements OnInit {
   addNewCourse(): void {
     if (this.addCourseForm.valid) {
       const formValue = this.addCourseForm.value;
-      this.coursesService.addItem(formValue).pipe(take(1)).subscribe();
+      this.store.dispatch(CoursesActions.createCourse({ data: formValue }));
       this.router.navigate(['/courses']);
     }
   }
 
   cancel(): void {
     this.router.navigate(['/courses']);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

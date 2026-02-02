@@ -26,11 +26,12 @@ export class CoursesService {
         })
         .pipe(
           map((courses) =>
-            courses.filter(
-              (course) =>
+            courses.filter((course) => {
+              return (
                 course.title.toLowerCase().includes(filter.toLowerCase()) ||
                 course.description.toLowerCase().includes(filter.toLowerCase())
-            )
+              );
+            })
           ),
           catchError((err) => {
             console.error(err);
