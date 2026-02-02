@@ -3,7 +3,7 @@ import { Courses, CoursesQueryParams } from 'src/app/domain/courses.interface';
 import { FilterPipe } from '../search/pipes/filter.pipe';
 import { CoursesService } from 'src/app/services/courses.service';
 import { SearchComponent } from '../search/search.component';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { Store } from '@ngrx/store';
@@ -51,7 +51,7 @@ export class MainComponent implements OnInit, OnDestroy {
       CoursesActions.getCourses({ data: this.mainCoursesQueryprops })
     );
 
-    this.courses$?.subscribe((courses) => {
+    this.courses$?.pipe(takeUntil(this.destroy$)).subscribe((courses) => {
       this.amountOfCourses = courses.length;
       if (courses.length < 10 || courses.length % 10) {
         this.showMoreButton = false;
@@ -60,7 +60,7 @@ export class MainComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.isLoadingNow.subscribe((data) => {
+    this.isLoadingNow.pipe(takeUntil(this.destroy$)).subscribe((data) => {
       if (data === false && this.amountOfCourses === 0) {
         this.isNotFound = true;
       } else {

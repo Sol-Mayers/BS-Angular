@@ -20,6 +20,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { CoursesEffectsEffects } from './store/courses/effects/courses-effects.effects';
+import { AuthEffectsEffects } from './store/auth/effects/auth-effects.effects';
+import { AuthorsEffectsEffects } from './store/authors/effects/authors-effects.effects';
 
 registerLocaleData(localeRu);
 
@@ -41,7 +43,7 @@ registerLocaleData(localeRu);
     !environment.production
       ? StoreDevtoolsModule.instrument({ maxAge: 25 })
       : [],
-    EffectsModule.forRoot([CoursesEffectsEffects]),
+    EffectsModule.forRoot([CoursesEffectsEffects, AuthEffectsEffects, AuthorsEffectsEffects]),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru-RU' },

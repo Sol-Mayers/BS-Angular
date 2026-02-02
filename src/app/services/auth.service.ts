@@ -40,7 +40,7 @@ export class AuthService {
 
   // Вход и сохранение данных о пользователе в базу данных.
   // Временно работает и как регистрация и как вход.
-  public login(loginFormFields: loginFormInput): void {
+  public login(loginFormFields: loginFormInput): Observable<loginFormFields> {
     const hashPassword = this.hashPassword(loginFormFields);
     const token = this.token();
 
@@ -54,38 +54,38 @@ export class AuthService {
     };
 
     localStorage.setItem('coursesUserToken', token);
-    this.httpClient
-      .post<loginFormFields>(`${this.mainUrl}/users`, userInfo)
-      .subscribe();
 
     // Обновляем состояние авторизации
     this.currentUser = token;
     this._userFields$.next(token);
+
+    return this.httpClient.post<loginFormFields>(
+      `${this.mainUrl}/users`,
+      userInfo
+    );
   }
 
-  public logout(id: string): void {
-    this.httpClient
-      .delete<loginFormFields>(`${this.mainUrl}/users/${id}`)
-      .subscribe({
-        next: (user) => {
-          console.log(`Выход ${user.firstName}`);
-        },
-        error: (err) => console.log(`Ошибка при выходе, ${err}`),
-      });
-
+  public logout(id: string): Observable<loginFormFields> {
     localStorage.removeItem('coursesUserToken');
 
     // Обновляем состояние авторизации
     this.currentUser = null;
     this._userFields$.next('');
+
+    return this.httpClient.delete<loginFormFields>(
+      `${this.mainUrl}/users/${id}`
+    );
   }
 
   public getUserInfo(): Observable<loginFormFields> {
-    return this.httpClient.get<loginFormFields[]>(`${this.mainUrl}/users`).pipe(
-      map((users) => {
-        return users.filter((user) => user.fakeToken == this.currentUser)[0];
-      })
-    );
+    return this.httpClient
+      .get<loginFormFields[]>(`${this.mainUrl}/users`)
+      .pipe(
+        map(
+          (users) =>
+            users.filter((user) => user.fakeToken == this.currentUser)[0]
+        )
+      );
   }
 
   getValue(): Observable<string> {

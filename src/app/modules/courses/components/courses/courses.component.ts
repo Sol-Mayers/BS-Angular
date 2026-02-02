@@ -1,8 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { Observable, take } from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Courses } from 'src/app/domain/courses.interface';
-import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
   selector: 'app-courses',

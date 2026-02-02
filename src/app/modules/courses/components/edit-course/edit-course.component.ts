@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -15,13 +16,14 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Observable, take, tap } from 'rxjs';
+import { map, Observable, Subject, take, takeUntil, tap } from 'rxjs';
 import { Authors } from 'src/app/domain/authors.interface';
 import { AutoCompleteCompleteEvent } from 'src/app/domain/autocomplete.interface';
 import { Courses } from 'src/app/domain/courses.interface';
-import { AuthorsService } from 'src/app/services/authors.service';
 import { BreadcrumbsService } from 'src/app/services/breadcrumbs.service';
 import { CoursesState } from 'src/app/store';
+import { AuthorsActions } from 'src/app/store/authors/actions/authors-actions.actions';
+import { selectAuthors } from 'src/app/store/authors/selectors/authors-selectors.selectors';
 import { CoursesActions } from 'src/app/store/courses/actions/courses-actions.actions';
 import { selectCourses } from 'src/app/store/courses/selectors/courses-selectors.selectors';
 
@@ -32,12 +34,11 @@ import { selectCourses } from 'src/app/store/courses/selectors/courses-selectors
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DatePipe],
 })
-export class EditCourseComponent implements OnInit {
+export class EditCourseComponent implements OnInit, OnDestroy {
   constructor(
     private currentRoute: ActivatedRoute,
     private readonly breadcrumbService: BreadcrumbsService,
     private readonly fb: FormBuilder,
-    private readonly authorsService: AuthorsService,
     private cd: ChangeDetectorRef,
     private datePipe: DatePipe,
     public readonly router: Router,
@@ -48,36 +49,31 @@ export class EditCourseComponent implements OnInit {
   @Output() hideCoursePage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   editCourseForm!: FormGroup;
-  allAuthors: Authors[] = [];
+  allAuthors: Observable<Authors[]> = this.store.select(selectAuthors);
   filteredAuthors: Authors[] = [];
   currentId: string | null = null;
   // Поля текущего курса
   courseFields!: Observable<Courses | null>;
+  private destroy$ = new Subject<void>();
 
   getFilteredAuthors(event: AutoCompleteCompleteEvent) {
     const filtered: Authors[] = [];
     const query = event.query;
 
-    for (const author of this.allAuthors) {
-      if (author.name!.toLowerCase().indexOf(query.toLowerCase()) === 0) {
-        filtered.push(author);
+    this.allAuthors.pipe(takeUntil(this.destroy$)).subscribe((authors) => {
+      for (const author of authors) {
+        if (author.name!.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+          filtered.push(author);
+        }
       }
-    }
+    });
 
     this.filteredAuthors = filtered;
-    console.log(this.filteredAuthors);
   }
 
   ngOnInit(): void {
-    this.authorsService.getAuthors().subscribe({
-      next: (authors) => {
-        if (Array.isArray(authors)) {
-          this.allAuthors = authors;
-        } else {
-          this.allAuthors = [];
-        }
-      },
-    });
+    this.store.dispatch(AuthorsActions.getAuthors());
+
     this.editCourseForm = this.fb.group({
       id: [''],
       title: ['', [Validators.required, Validators.maxLength(50)]],
@@ -149,5 +145,10 @@ export class EditCourseComponent implements OnInit {
 
   cancel(): void {
     this.router.navigate(['/courses']);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

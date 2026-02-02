@@ -3,7 +3,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as fromCoursesActions from '../actions/courses-actions.actions';
 import { CoursesService } from 'src/app/services/courses.service';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { CoursesQueryParams } from 'src/app/domain/courses.interface';
 
 @Injectable()
 export class CoursesEffectsEffects {
