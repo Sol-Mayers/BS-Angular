@@ -71,12 +71,12 @@ export class AddNewCourseComponent implements OnInit, OnDestroy {
       description: ['', [Validators.required, Validators.maxLength(500)]],
       duration: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       creationDate: ['', [Validators.required]],
-      authors: this.fb.control<Authors | null>(null, Validators.required),
+      authors: this.fb.control<Authors[]>([], Validators.required),
     });
   }
 
   get authors() {
-    return this.addCourseForm.get('authors') as FormControl;
+    return this.addCourseForm.get('authors') as FormControl<Authors[]>;
   }
   get title() {
     return this.addCourseForm.get('title');

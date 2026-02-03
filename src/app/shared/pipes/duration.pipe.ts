@@ -9,27 +9,27 @@ export class DurationPipe implements PipeTransform {
       const getEndingMinutes = (num: string): string => {
         const last = num[num.length - 1];
         if (last == '1') {
-          return ' минута';
+          return 'минута';
         } else if (last == '2' || last == '3' || last == '4') {
-          return ' минуты';
+          return 'минуты';
         } else {
-          return ' минут';
+          return 'минут';
         }
       };
 
       const getEndingHours = (num: string): string => {
         const last = num[num.length - 1];
         if (last == '1') {
-          return ' час';
+          return 'час';
         } else if (last == '2' || last == '3' || last == '4') {
-          return ' часа';
+          return 'часа';
         } else {
-          return ' часов';
+          return 'часов';
         }
       };
 
       if (minutes < 60) {
-        return minutes + getEndingMinutes(String(minutes));
+        return minutes + ' ' + getEndingMinutes(String(minutes));
       } else {
         const hoursResult = Math.floor(minutes / 60);
         const minutesResult = minutes % 60;

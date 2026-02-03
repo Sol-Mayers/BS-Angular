@@ -62,6 +62,6 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     AutoCompleteModule,
   ],
   providers: [ConfirmationService, MessageService],
-  exports: [MainComponent],
+  exports: [MainComponent, DurationPipe],
 })
 export class CoursesModule {}

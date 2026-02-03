@@ -1,19 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthorsInputComponent } from './authors-input.component';
+import { AuthorsInputEditComponent } from './authors-input.component';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
-describe('AuthorsInputComponent', () => {
-  let component: AuthorsInputComponent;
-  let fixture: ComponentFixture<AuthorsInputComponent>;
+describe('AuthorsInputEditComponent', () => {
+  let component: AuthorsInputEditComponent;
+  let fixture: ComponentFixture<AuthorsInputEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AuthorsInputComponent ]
-    })
-    .compileComponents();
+      declarations: [AuthorsInputEditComponent],
+      imports: [FormsModule, ReactiveFormsModule, AutoCompleteModule],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(AuthorsInputComponent);
+    fixture = TestBed.createComponent(AuthorsInputEditComponent);
     component = fixture.componentInstance;
+    component.authors = new FormControl([], Validators.required);
     fixture.detectChanges();
   });
 

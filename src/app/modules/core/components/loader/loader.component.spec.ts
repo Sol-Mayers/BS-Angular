@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoaderComponent } from './loader.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 describe('LoaderComponent', () => {
   let component: LoaderComponent;
@@ -8,9 +9,9 @@ describe('LoaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoaderComponent ]
-    })
-    .compileComponents();
+      imports: [ProgressSpinnerModule],
+      declarations: [LoaderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LoaderComponent);
     component = fixture.componentInstance;
